@@ -1,0 +1,74 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cmds_utils.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/13 10:26:17 by jmanet            #+#    #+#             */
+/*   Updated: 2022/11/17 18:23:57 by jmanet           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../includes/minishell.h"
+
+char	*path_env(char **envp)
+{
+	int	i;
+
+	i = 0;
+	while (envp[i])
+	{
+		if (ft_strnstr(envp[i], "PATH", 4))
+			return (ft_substr(envp[i], 5, ft_strlen(envp[i]) - 5));
+		i++;
+	}
+	return (NULL);
+}
+
+char	*ft_absolute_path(char *cmd, const char *PATH)
+{
+	char	**paths;
+	char	*tmp;
+	char	*current_path;
+	int		i;
+
+	i = 0;
+	paths = ft_split(PATH, ':');
+	while (paths[i])
+	{
+		tmp = ft_strjoin(paths[i], "/");
+		current_path = ft_strjoin(tmp, cmd);
+		free(tmp);
+		if (access(current_path, X_OK) == 0)
+			return (current_path);
+		free(current_path);
+		i++;
+	}
+	return (NULL);
+}
+
+char	**get_current_command(char	*arg, char **envp)
+{
+	char	**cmd;
+	char	*path;
+	char	*cmd_name;
+
+	cmd = ft_split(arg, ' ');
+	cmd_name = cmd[0];
+	if (!access(cmd[0], X_OK))
+		return (cmd);
+	if (cmd[0][0] == '.' || cmd[0][0] == '/')
+	{
+		if (!access(cmd[0], X_OK))
+			return (cmd);
+		else
+			exit_cmd_strerror(cmd_name);
+	}
+	path = path_env(envp);
+	cmd[0] = ft_absolute_path(cmd[0], path);
+	if (!cmd[0])
+		cmd_not_found(cmd_name);
+	free(path);
+	return (cmd);
+}
