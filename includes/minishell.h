@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:09:47 by jmanet            #+#    #+#             */
-/*   Updated: 2022/11/17 18:31:19 by jmanet           ###   ########.fr       */
+/*   Updated: 2022/11/29 12:27:16 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,34 @@
 # include <readline/history.h>
 # include <string.h>
 # include <errno.h>
+# include <signal.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <fcntl.h>
+
+typedef struct t_data
+{
+	char	*str;
+	char	**envp;
+	char	*infile;
+	char	*outfile;
+	int		in_isinfile;
+	int		out_isoutfile;
+	int		fd_infile;
+	int		fd_outfile;
+
+}	t_data;
 
 
 char	**get_current_command(char	*arg, char **envp);
+char	**ft_import_envp(char **envp, t_data *data);
+
+char	*ft_getenv(char *name, t_data *data);
+int		ft_setenv(char *name, char *value, int overwrite, t_data *data);
+int		ft_change_directory(t_data *data);
+int		cmd_is_builtin(t_data *data);
 void	exit_cmd_strerror(char *cmd_name);
 void	cmd_not_found(char *cmd_name);
-
+void	ft_exit_error(char *error_msg);
+void	free_tab_str(char **str);
 #endif

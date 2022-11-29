@@ -1,34 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_utils.c                                      :+:      :+:    :+:   */
+/*   ch_dir.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/13 08:59:42 by jmanet            #+#    #+#             */
-/*   Updated: 2022/11/21 19:50:56 by jmanet           ###   ########.fr       */
+/*   Created: 2022/11/19 08:52:39 by jmanet            #+#    #+#             */
+/*   Updated: 2022/11/29 11:11:18 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	ft_exit_error(char *error_msg)
+int	ft_change_directory(t_data *data)
 {
-	ft_putstr_fd(error_msg, 2);
-	exit (errno);
-}
+	char	pwd[200];
+	char	**cmd;
 
-void	exit_cmd_strerror(char *cmd_name)
-{
-	write(2, strerror(errno), ft_strlen(strerror(errno)));
-	write(2, ": ", 2);
-	write(2, cmd_name, ft_strlen(cmd_name));
-	write(2, "\n", 1);
-}
+	cmd = ft_split(data->str, ' ');
 
-void	cmd_not_found(char *cmd_name)
-{
-	write(2, "command not found: ", 19);
-	write(2, cmd_name, ft_strlen(cmd_name));
-	write(2, "\n", 1);
+	if (!access(cmd[1], R_OK))
+	{
+		ft_setenv("OLDPWD", ft_strjoin("OLDPWD=",getcwd(pwd, 200)), 1, data);
+		chdir(cmd[1]);
+		ft_setenv("PWD", ft_strjoin("PWD=", getcwd(pwd, 200)), 1, data);
+	}
+	else
+		printf("cd: %s: %s\n", strerror(errno), cmd[1]);
+	free_tab_str(cmd);
+	return (0);
 }

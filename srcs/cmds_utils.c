@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 10:26:17 by jmanet            #+#    #+#             */
-/*   Updated: 2022/11/17 18:23:57 by jmanet           ###   ########.fr       */
+/*   Updated: 2022/11/29 11:10:26 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,16 @@ char	*ft_absolute_path(char *cmd, const char *PATH)
 		current_path = ft_strjoin(tmp, cmd);
 		free(tmp);
 		if (access(current_path, X_OK) == 0)
+		{
+			free_tab_str(paths);
+			free(cmd);
 			return (current_path);
+		}
 		free(current_path);
 		i++;
 	}
+	free_tab_str(paths);
+	free(cmd);
 	return (NULL);
 }
 
@@ -71,4 +77,17 @@ char	**get_current_command(char	*arg, char **envp)
 		cmd_not_found(cmd_name);
 	free(path);
 	return (cmd);
+}
+
+void	free_tab_str(char **str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		free(str[i]);
+		i++;
+	}
+	free(str);
 }

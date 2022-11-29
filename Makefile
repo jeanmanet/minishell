@@ -6,14 +6,14 @@
 #    By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/17 12:02:12 by jmanet            #+#    #+#              #
-#    Updated: 2022/11/17 18:29:20 by jmanet           ###   ########.fr        #
+#    Updated: 2022/11/19 09:05:59 by jmanet           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 NAME = minishell
 
-SRCS = srcs/main.c srcs/cmds_utils.c srcs/error_utils.c
+SRCS = $(wildcard srcs/*.c)
 
 INCLUDES = includes/minishell.h
 
@@ -40,3 +40,7 @@ fclean : clean
 	rm -rf ${NAME}
 
 re : fclean all
+
+d :
+	${CC} ${SRCS} ${LIBS} -I includes/ -o ${NAME} -g
+
