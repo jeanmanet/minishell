@@ -6,12 +6,12 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 10:30:19 by jmanet            #+#    #+#             */
-/*   Updated: 2022/11/24 09:32:39 by jmanet           ###   ########.fr       */
+/*   Updated: 2022/12/20 12:06:16 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
+/*
 void	open_files(t_data *data)
 {
 	data->fd_infile = open(data->infile, O_RDONLY, 0644);
@@ -37,7 +37,7 @@ void	close_files(t_data *data)
 	close (data->fd_infile);
 	close (data->fd_outfile);
 }
-/*
+
 void	close_pipes(t_data *data)
 {
 	close(data->pipe[0]);

@@ -1,13 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/29 22:03:37 by jmanet            #+#    #+#             */
+/*   Updated: 2022/12/20 13:33:46 by jmanet           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
-
-
-int	launch_commandline(t_data *data)
+int	exec_commandline(t_data *data)
 {
 	char	**cmd;
 	pid_t	pid;
 
-	cmd = get_current_command(data->str, data->envp);
+	cmd = get_current_command(data->command_line, data->envp);
 	if (cmd[0])
 	{
 		pid = fork();
@@ -20,72 +30,60 @@ int	launch_commandline(t_data *data)
 	return (0);
 }
 
-
-
-
-
-
-void	ft_get_stdin(t_data *data)
-{
-	//char	**split_str;
-
-	if (data->str[0] == '<')
-	{
-		data->in_isinfile = 1;
-		//splitstr = ft_split(data->)
-
-	}
-	else
-		data->in_isinfile = 0;
-}
-
 int	parse_commandline(t_data *data)
 {
-	if (ft_strlen(data->str))
+	int	returnval;
+
+	returnval = 0;
+	if (ft_strlen(data->command_line))
 	{
-		if (!cmd_is_builtin(data))
-		{
-			ft_get_stdin(data);
-			launch_commandline(data);
-		}
+		if (cmd_is_builtin(data))
+			returnval = exec_builtin(data);
+		else
+			returnval = exec_commandline(data);
 	}
-	free(data->str);
-	return (0);
+	free(data->command_line);
+	return (returnval);
 }
 
-
-void	ft_nothing(int sig)
+void	ft_signal_handler(int sig)
 {
 		//printf("numero du signal %d\n", sig);
 		if (sig == 11)
 		{
-			printf("exit\n");
-			exit (0);
+			write(1, "exit\n", 5);
+			exit(0);
 		}
 		if (sig == 2)
 			printf("\n");
 }
 
-
+void	ft_exec_scriptfile(char **argv)
+{
+	//developper le code qui execute le contenu du fichier script
+	//ouvrir le fichier
+	//getnextline
+	//etc...
+	//sortir proprement apres avoir libere toutes les variables allouees dynamiquement
+	(void)argv;
+	exit(0);
+}
 
 int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
 
-	if (argc != 1)
-		exit (0);
-	(void)argv;
 	data.envp = ft_import_envp(envp, &data);
-
-	//signal(SIGABRT, ft_nothing);
+	if (argc > 1)
+		ft_exec_scriptfile(argv);
 	while (1)
 	{
-		signal(SIGSEGV, ft_nothing);
-		signal(SIGINT, ft_nothing);
-		signal(SIGQUIT, ft_nothing);
-		data.str = readline("minishell > ");
-		add_history(data.str);
-		parse_commandline(&data);
+		signal(SIGSEGV, ft_signal_handler);
+		signal(SIGINT, ft_signal_handler);
+		signal(SIGQUIT, ft_signal_handler);
+		data.command_line = readline("minishell > ");
+		add_history(data.command_line);
+		printf("returnval : %d\n", parse_commandline(&data));
 	}
 	return (0);
 

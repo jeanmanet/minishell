@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 09:17:31 by jmanet            #+#    #+#             */
-/*   Updated: 2022/11/29 11:45:42 by jmanet           ###   ########.fr       */
+/*   Updated: 2022/11/29 23:41:30 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*ft_getenv(char *name, t_data *data)
 	while (data->envp[i])
 	{
 		if (!ft_strncmp(data->envp[i], name, ft_strlen(name)))
-			return (data->envp[i]);
+			return (&data->envp[i][ft_strlen(name) + 1]);
 		i++;
 	}
 	return (NULL);
