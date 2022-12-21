@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 10:26:17 by jmanet            #+#    #+#             */
-/*   Updated: 2022/12/21 16:14:34 by jmanet           ###   ########.fr       */
+/*   Updated: 2022/12/21 20:31:08 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ char	**get_current_command(char	*arg, char **envp)
 	if (!cmd[0])
 		cmd_not_found(cmd_name);
 	free(path);
+	printf("cmd0 : %s\n", cmd[0]);
 	return (cmd);
 }
 
@@ -84,6 +85,8 @@ void	free_tab_str(char **str)
 	int	i;
 
 	i = 0;
+	if (!str[0] && str[1])
+		i++;
 	while (str[i])
 	{
 		free(str[i]);

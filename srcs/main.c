@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 22:03:37 by jmanet            #+#    #+#             */
-/*   Updated: 2022/12/21 15:43:00 by jmanet           ###   ########.fr       */
+/*   Updated: 2022/12/21 20:57:09 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,26 +30,31 @@ int	exec_processus(t_data *data)
 	return (0);
 }
 
+void	ft_redirectio(t_data *data)
+{
+	(void)data;
+}
+
+
+
 int	exec_command(t_data *data)
 {
 	int	returnval;
-	// (void)data;
-	printf("command : %s\n", data->command->command);
-	// return (0);
 	returnval = 0;
-	if (data->command->command)
+	//printf("strlen command : %zu\n", ft_strlen(data->command->command));
+	if (ft_strlen(data->command->command))
 	{
+		ft_redirectio(data);
 		if (cmd_is_builtin(data))
 				returnval = exec_builtin(data);
 		else
 				returnval = exec_processus(data);
-		free(data->command->command);
-		free(data->command);
-		free(data->command_line);
 	}
+	free(data->command->command);
+	free(data->command);
+	free(data->command_line);
 	return (returnval);
 }
-
 
 void	ft_signal_handler(int sig)
 {

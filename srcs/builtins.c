@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 11:47:39 by jmanet            #+#    #+#             */
-/*   Updated: 2022/12/21 14:33:42 by jmanet           ###   ########.fr       */
+/*   Updated: 2022/12/21 20:37:06 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,28 +15,26 @@
 int	ft_echo(t_com *command)
 {
 	int		i;
+	char	**strs;
 
-	i = 4;
-	while (command->command[i])
+	strs = ft_split(command->command, ' ');
+	if (strs[1])
 	{
-		if (ft_isspace(command->command[i]))
-			i++;
-		if (command->command[i] == '-' && command->command[i + 1] == 'n')
-		{
-				i += 2;
-				//while (ft_isspace(data->command_line[i]))
-				//	i++;
-				printf("%s", &command->command[i]);
-		}
+		if (!ft_strncmp(strs[1], "-n", 2))
+			i = 2;
 		else
+			i = 1;
+		while (strs[i])
 		{
-			if (command->command[i] == '-')
-				i++;
-			//while (ft_isspace(data->command_line[i]))
-			//	i++;
-			printf("%s\n", &command->command[i]);
+			printf("%s", strs[i]);
+			i++;
+			if (strs[i])
+				printf(" ");
 		}
+		if (ft_strncmp(strs[1], "-n", 2))
+			printf("\n");
 	}
+	free_tab_str(strs);
 	return (0);
 }
 
@@ -46,6 +44,8 @@ char	*var_name(char *str)
 	char	*varname;
 
 	i = 0;
+	if (!ft_ischarset(str, '='))
+		return (NULL);
 	while (str[i] != '=')
 		i++;
 	varname = malloc(sizeof(char) * i + 1);
@@ -68,11 +68,18 @@ int	ft_export(t_data *data)
 	char	*value;
 	int		returnval;
 
+	returnval = 0;
 	args = ft_split(data->command_line, ' ');
-	name = var_name(args[1]);
-	value = ft_strdup(args[1]);
-	returnval = ft_setenv(name, value, 1, data);
-	free(name);
+	if (args[1])
+	{
+		name = var_name(args[1]);
+		if (name)
+		{
+			value = ft_strdup(args[1]);
+			returnval = ft_setenv(name, value, 1, data);
+		}
+		free(name);
+	}
 	free_tab_str(args);
 	return (returnval);
 }
