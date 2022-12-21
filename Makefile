@@ -6,7 +6,7 @@
 #    By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/17 12:02:12 by jmanet            #+#    #+#              #
-#    Updated: 2022/12/20 13:51:01 by jmanet           ###   ########.fr        #
+#    Updated: 2022/12/21 13:54:53 by jmanet           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ INCLUDES = includes/minishell.h
 
 CC = gcc
 
-FLAGS = -Wall -Werror -Wextra
+FLAGS = -Wall -Werror -Wextra -g
 
 LIBFT = libft/libft.a
 
@@ -29,16 +29,14 @@ LIBS = ${LIBFT} -lreadline
 .c.o:
 	${CC} -I ${INCLUDES} ${FLAGS} -c $< -o ${<:.c=.o}
 
-.PHONY : libft
-
 OBJS = ${SRCS:.c=.o}
 
 all : ${NAME}
 
-${NAME} : libft ${OBJS} ${INCLUDES}
+${NAME} : ${LIBFT} ${OBJS} ${INCLUDES}
 	${CC} ${SRCS} ${LIBS} -I includes/ ${FLAGS} -o ${NAME}
 
-libft :
+${LIBFT}:
 	make bonus -C libft/
 
 clean :

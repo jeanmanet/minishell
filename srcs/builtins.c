@@ -6,35 +6,35 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 11:47:39 by jmanet            #+#    #+#             */
-/*   Updated: 2022/12/20 13:53:12 by jmanet           ###   ########.fr       */
+/*   Updated: 2022/12/21 14:33:42 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	ft_echo(t_data *data)
+int	ft_echo(t_com *command)
 {
 	int		i;
 
 	i = 4;
-	while (data->command_line[i])
+	while (command->command[i])
 	{
-		if (ft_isspace(data->command_line[i]))
+		if (ft_isspace(command->command[i]))
 			i++;
-		if (data->command_line[i] == '-' && data->command_line[i + 1] == 'n')
+		if (command->command[i] == '-' && command->command[i + 1] == 'n')
 		{
 				i += 2;
-				while (ft_isspace(data->command_line[i]))
-					i++;
-				printf("%s", &data->command_line[i]);
+				//while (ft_isspace(data->command_line[i]))
+				//	i++;
+				printf("%s", &command->command[i]);
 		}
 		else
 		{
-			if (data->command_line[i] == '-')
+			if (command->command[i] == '-')
 				i++;
-			while (ft_isspace(data->command_line[i]))
-				i++;
-			printf("%s\n", &data->command_line[i]);
+			//while (ft_isspace(data->command_line[i]))
+			//	i++;
+			printf("%s\n", &command->command[i]);
 		}
 	}
 	return (0);
@@ -79,33 +79,39 @@ int	ft_export(t_data *data)
 
 int	cmd_is_builtin(t_data *data)
 {
-	if (!ft_strncmp(data->command_line, "exit", 4))
+	t_com *command;
+
+	command = data->command;
+	if (!ft_strncmp(command->command, "exit", 4))
 		return (1);
-	if (!ft_strncmp(data->command_line, "cd ", 3))
+	if (!ft_strncmp(command->command, "cd ", 3))
 		return (1);
-	if (!ft_strncmp(data->command_line, "pwd", 3))
+	if (!ft_strncmp(command->command, "pwd", 3))
 		return (1);
-	if (!ft_strncmp(data->command_line, "echo", 4))
+	if (!ft_strncmp(command->command, "echo", 4))
 		return (1);
-	if (!ft_strncmp(data->command_line, "export", 6))
+	if (!ft_strncmp(command->command, "export", 6))
 		return (1);
 	return(0);
 }
 
 int	exec_builtin(t_data *data)
 {
-	if (!ft_strncmp(data->command_line, "exit", 4))
+	t_com	*command;
+
+	command = data->command;
+	if (!ft_strncmp(command->command, "exit", 4))
 	{
-		free(data->command_line);
+		free(command->command);
 		exit (0);
 	}
-	if (!ft_strncmp(data->command_line, "cd ", 3))
+	if (!ft_strncmp(command->command, "cd ", 3))
 		return (ft_change_directory(data));
-	if (!ft_strncmp(data->command_line, "pwd", 3))
+	if (!ft_strncmp(command->command, "pwd", 3))
 		printf("%s\n", ft_getenv("PWD", data));
-	if (!ft_strncmp(data->command_line, "echo", 4))
-		return (ft_echo(data));
-	if (!ft_strncmp(data->command_line, "export", 6))
+	if (!ft_strncmp(command->command, "echo", 4))
+		return (ft_echo(command));
+	if (!ft_strncmp(command->command, "export", 6))
 		return (ft_export(data));
 	//faire la builtin "unset"
 	return(0);

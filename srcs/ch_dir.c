@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 08:52:39 by jmanet            #+#    #+#             */
-/*   Updated: 2022/12/20 13:31:31 by jmanet           ###   ########.fr       */
+/*   Updated: 2022/12/21 14:30:31 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ft_change_directory(t_data *data)
 	char	pwd[256];
 	char	**cmd;
 
-	cmd = ft_split(data->command_line, ' ');
+	cmd = ft_split(data->command->command, ' ');
 
 	if (!access(cmd[1], R_OK))
 	{
