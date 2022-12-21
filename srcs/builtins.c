@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 11:47:39 by jmanet            #+#    #+#             */
-/*   Updated: 2022/12/21 20:37:06 by jmanet           ###   ########.fr       */
+/*   Updated: 2022/12/21 21:02:33 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,15 +89,15 @@ int	cmd_is_builtin(t_data *data)
 	t_com *command;
 
 	command = data->command;
-	if (!ft_strncmp(command->command, "exit", 4))
+	if (!ft_strncmp(command->command, "exit ", 5))
 		return (1);
 	if (!ft_strncmp(command->command, "cd ", 3))
 		return (1);
-	if (!ft_strncmp(command->command, "pwd", 3))
+	if (!ft_strncmp(command->command, "pwd ", 4))
 		return (1);
-	if (!ft_strncmp(command->command, "echo", 4))
+	if (!ft_strncmp(command->command, "echo ", 5))
 		return (1);
-	if (!ft_strncmp(command->command, "export", 6))
+	if (!ft_strncmp(command->command, "export ", 7))
 		return (1);
 	return(0);
 }
@@ -107,18 +107,18 @@ int	exec_builtin(t_data *data)
 	t_com	*command;
 
 	command = data->command;
-	if (!ft_strncmp(command->command, "exit", 4))
+	if (!ft_strncmp(command->command, "exit ", 5))
 	{
 		free(command->command);
 		exit (0);
 	}
 	if (!ft_strncmp(command->command, "cd ", 3))
 		return (ft_change_directory(data));
-	if (!ft_strncmp(command->command, "pwd", 3))
+	if (!ft_strncmp(command->command, "pwd ", 4))
 		printf("%s\n", ft_getenv("PWD", data));
-	if (!ft_strncmp(command->command, "echo", 4))
+	if (!ft_strncmp(command->command, "echo ", 5))
 		return (ft_echo(command));
-	if (!ft_strncmp(command->command, "export", 6))
+	if (!ft_strncmp(command->command, "export ", 7))
 		return (ft_export(data));
 	//faire la builtin "unset"
 	return(0);
