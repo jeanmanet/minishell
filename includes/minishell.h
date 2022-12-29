@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:09:47 by jmanet            #+#    #+#             */
-/*   Updated: 2022/12/29 08:18:20 by jmanet           ###   ########.fr       */
+/*   Updated: 2022/12/29 10:36:11 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,12 @@ typedef struct t_com
 
 }t_com;
 
+typedef struct t_var
+{
+	char	*name;
+	char	*value;
+}t_var;
+
 typedef struct t_data
 {
 	char	*command_line;
@@ -40,6 +46,7 @@ typedef struct t_data
 	char	**args;
 	int		nbargs;
 	int		nbcmds;
+	int		endstatus;
 	t_com	*command;
 
 }	t_data;
@@ -52,18 +59,23 @@ int		ft_setenv(char *name, char *value, int overwrite, t_data *data);
 int		ft_change_directory(t_data *data);
 int		parse_commandline(t_data *data);
 int		exec_command(t_data *data);
+int		exec_processus(t_data *data);
 int		cmd_is_builtin(t_data *data);
 int		exec_builtin(t_data *data);
 void	exit_cmd_strerror(char *cmd_name);
 void	cmd_not_found(char *cmd_name);
 void	ft_exit_error(char *error_msg);
-void	free_tab_str(char **str);
 int		ft_redirect_io(t_data *data);
 int		open_infile(t_data *data);
 int		open_outfile(t_data *data);
-void	close_files(t_data *data);
-
-
+void	ft_signal_handler(int sig);
+void	ft_exec_scriptfile(char **argv);
+int		ft_nbargs(char *command_line);
+void	ft_command_line_to_args(t_data *data);
+void	ft_make_command(int cmd_number, t_data *data);
+void	ft_free_allocated_mem(t_data *data);
+void	ft_parse_args(t_data *data);
+void	ft_free_command(t_data *data);
 
 
 void	ft_print_args(char **str);

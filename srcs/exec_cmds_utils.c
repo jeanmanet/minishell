@@ -6,24 +6,11 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 10:26:17 by jmanet            #+#    #+#             */
-/*   Updated: 2022/12/28 16:57:05 by jmanet           ###   ########.fr       */
+/*   Updated: 2022/12/29 09:15:10 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-void	free_tab_str(char **str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		free(str[i]);
-		i++;
-	}
-	free(str);
-}
 
 void	free_tab_str_cmd(char **str)
 {
@@ -102,7 +89,7 @@ char	*get_current_command(char	*arg, char **envp)
 	}
 	path = path_env(envp);
 	cmd = ft_absolute_path(cmd, path);
-	if (!arg)
+	if (!cmd)
 		cmd_not_found(cmd_name);
 	free(path);
 	return (cmd);

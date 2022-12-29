@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 11:47:39 by jmanet            #+#    #+#             */
-/*   Updated: 2022/12/29 08:15:19 by jmanet           ###   ########.fr       */
+/*   Updated: 2022/12/29 09:18:14 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_echo(t_com *command)
 		printf("\n");
 		return (0);
 	}
-	if (!ft_strncmp(command->args[1], "-n", 2))
+	if (!ft_strncmp(command->args[1], "-n", 3))
 		i = 2;
 	else
 		i = 1;
@@ -33,7 +33,7 @@ int	ft_echo(t_com *command)
 		if (command->args[i])
 			printf(" ");
 	}
-	if (ft_strncmp(command->args[1], "-n", 2))
+	if (ft_strncmp(command->args[1], "-n", 3))
 		printf("\n");
 	return (0);
 }
