@@ -6,11 +6,39 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 10:26:17 by jmanet            #+#    #+#             */
-/*   Updated: 2022/12/21 20:31:08 by jmanet           ###   ########.fr       */
+/*   Updated: 2022/12/28 16:57:05 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void	free_tab_str(char **str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		free(str[i]);
+		i++;
+	}
+	free(str);
+}
+
+void	free_tab_str_cmd(char **str)
+{
+	int	i;
+
+	i = 0;
+	if (!str[0] && str[1])
+		i++;
+	while (str[i])
+	{
+		free(str[i]);
+		i++;
+	}
+	free(str);
+}
 
 char	*path_env(char **envp)
 {
@@ -42,55 +70,42 @@ char	*ft_absolute_path(char *cmd, const char *PATH)
 		free(tmp);
 		if (access(current_path, X_OK) == 0)
 		{
-			free_tab_str(paths);
+			free_tab_str_cmd(paths);
 			free(cmd);
 			return (current_path);
 		}
 		free(current_path);
 		i++;
 	}
-	free_tab_str(paths);
+	free_tab_str_cmd(paths);
 	free(cmd);
 	return (NULL);
 }
 
-char	**get_current_command(char	*arg, char **envp)
+char	*get_current_command(char	*arg, char **envp)
 {
-	char	**cmd;
+	char	*cmd;
 	char	*path;
 	char	*cmd_name;
 
-	cmd = ft_split(arg, ' ');
-	cmd_name = cmd[0];
-	if (!access(cmd[0], X_OK))
+
+	cmd = arg;
+	cmd_name = arg;
+	if (!access(cmd, X_OK))
 		return (cmd);
-	if (cmd[0][0] == '.' || cmd[0][0] == '/')
+	if (cmd[0] == '.' || cmd[0] == '/')
 	{
-		if (!access(cmd[0], X_OK))
+		if (!access(cmd, X_OK))
 			return (cmd);
 		else
 			exit_cmd_strerror(cmd_name);
 	}
 	path = path_env(envp);
-	cmd[0] = ft_absolute_path(cmd[0], path);
-	if (!cmd[0])
+	cmd = ft_absolute_path(cmd, path);
+	if (!arg)
 		cmd_not_found(cmd_name);
 	free(path);
-	printf("cmd0 : %s\n", cmd[0]);
 	return (cmd);
 }
 
-void	free_tab_str(char **str)
-{
-	int	i;
 
-	i = 0;
-	if (!str[0] && str[1])
-		i++;
-	while (str[i])
-	{
-		free(str[i]);
-		i++;
-	}
-	free(str);
-}

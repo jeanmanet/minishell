@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:09:47 by jmanet            #+#    #+#             */
-/*   Updated: 2022/12/21 19:54:31 by jmanet           ###   ########.fr       */
+/*   Updated: 2022/12/29 08:18:20 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,28 +25,26 @@
 
 typedef struct t_com
 {
-	char	*command;
+	char	**args;
 	char	*infile;
-	int		infile_mod;
-	char	*delimiter;
 	char	*outfile;
-	int		outfile_mod;
-	FILE	*input;
-	FILE	*output;
+	//int		fd_input;// 1 pour std, 2 pour fichier, 3 pour pipe;
+	//int		fd_output;// 1 pour std, 2 pour fichier, 3 pour pipe;
+
 }t_com;
 
 typedef struct t_data
 {
 	char	*command_line;
 	char	**envp;
+	char	**args;
+	int		nbargs;
+	int		nbcmds;
 	t_com	*command;
 
 }	t_data;
 
-
-
-
-char	**get_current_command(char	*arg, char **envp);
+char	*get_current_command(char	*arg, char **envp);
 char	**ft_import_envp(char **envp, t_data *data);
 
 char	*ft_getenv(char *name, t_data *data);
@@ -60,4 +58,13 @@ void	exit_cmd_strerror(char *cmd_name);
 void	cmd_not_found(char *cmd_name);
 void	ft_exit_error(char *error_msg);
 void	free_tab_str(char **str);
+int		ft_redirect_io(t_data *data);
+int		open_infile(t_data *data);
+int		open_outfile(t_data *data);
+void	close_files(t_data *data);
+
+
+
+
+void	ft_print_args(char **str);
 #endif

@@ -6,53 +6,56 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 22:03:37 by jmanet            #+#    #+#             */
-/*   Updated: 2022/12/21 20:57:09 by jmanet           ###   ########.fr       */
+/*   Updated: 2022/12/28 19:48:25 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+
+
 int	exec_processus(t_data *data)
 {
-	char	**cmd;
 	pid_t	pid;
+	char	**cmd;
 
-	cmd = get_current_command(data->command->command, data->envp);
+	cmd = data->command->args;
+	cmd[0] = get_current_command(cmd[0], data->envp);
 	if (cmd[0])
 	{
 		pid = fork();
 		if (pid == 0)
+		{
+			ft_redirect_io(data);
 			execve(cmd[0], cmd, data->envp);
+		}
 		else
 			wait(NULL);
 	}
-	free_tab_str(cmd);
 	return (0);
 }
-
-void	ft_redirectio(t_data *data)
-{
-	(void)data;
-}
-
 
 
 int	exec_command(t_data *data)
 {
 	int	returnval;
 	returnval = 0;
-	//printf("strlen command : %zu\n", ft_strlen(data->command->command));
-	if (ft_strlen(data->command->command))
+	//printf("args 0 : %s\n", data->command->args[0]);
+	if (data->command->args[0] != NULL)
 	{
-		ft_redirectio(data);
 		if (cmd_is_builtin(data))
-				returnval = exec_builtin(data);
+		{
+			ft_redirect_io(data);
+			returnval = exec_builtin(data);
+			dup2(0,1);
+		}
 		else
-				returnval = exec_processus(data);
+		{
+			//printf("is cmd \n");
+			//ft_print_args(data->command->args);
+			returnval = exec_processus(data);
+		}
 	}
-	free(data->command->command);
-	free(data->command);
-	free(data->command_line);
 	return (returnval);
 }
 
@@ -79,11 +82,30 @@ void	ft_exec_scriptfile(char **argv)
 	exit(0);
 }
 
+void	ft_free_args(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (data->args[i])
+	{
+		free(data->args[i]);
+		i++;
+	}
+	free(data->args);
+}
+
+
+
+
+
 int	main(int argc, char **argv, char **envp)
 {
-	t_data	data;
+	t_data	*data;
 
-	data.envp = ft_import_envp(envp, &data);
+	data = malloc(sizeof(*data));
+	data->command = malloc(sizeof(data->command));
+	data->envp = ft_import_envp(envp, data);
 	if (argc > 1)
 		ft_exec_scriptfile(argv);
 	while (1)
@@ -91,10 +113,10 @@ int	main(int argc, char **argv, char **envp)
 		//signal(SIGSEGV, ft_signal_handler);
 		//signal(SIGINT, ft_signal_handler);
 		//signal(SIGQUIT, ft_signal_handler);
-		data.command_line = readline("minishell > ");
-		add_history(data.command_line);
-		parse_commandline(&data);
-		exec_command(&data);
+		data->command_line = readline("minishell > ");
+		add_history(data->command_line);
+		parse_commandline(data);
+		//ft_free_args(data);
 	}
 	return (0);
 
