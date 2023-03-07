@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 10:00:26 by jmanet            #+#    #+#             */
-/*   Updated: 2022/12/29 08:17:19 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/03/07 12:56:40 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,4 @@ int	ft_redirect_output(t_data *data)
 		dup2(fd, 1);
 	close(fd);
 	return (0);
-}
-
-int		ft_redirect_io(t_data *data)
-{
-	int	returnval;
-
-	returnval = 0;
-
-	if (data->command->infile[0] && !cmd_is_builtin(data))
-		returnval = ft_redirect_input(data);
-	if (data->command->outfile[0])
-		returnval = ft_redirect_output(data);
-	return (returnval);
 }

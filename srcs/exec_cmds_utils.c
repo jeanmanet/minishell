@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmds_utils.c                                       :+:      :+:    :+:   */
+/*   exec_cmds_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 10:26:17 by jmanet            #+#    #+#             */
-/*   Updated: 2022/12/29 09:15:10 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/03/07 12:35:43 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,12 @@ char	*ft_absolute_path(char *cmd, const char *PATH)
 		if (access(current_path, X_OK) == 0)
 		{
 			free_tab_str_cmd(paths);
-			free(cmd);
 			return (current_path);
 		}
 		free(current_path);
 		i++;
 	}
 	free_tab_str_cmd(paths);
-	free(cmd);
 	return (NULL);
 }
 

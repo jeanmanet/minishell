@@ -6,53 +6,70 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 10:55:24 by jmanet            #+#    #+#             */
-/*   Updated: 2022/12/29 11:03:00 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/03/07 13:55:21 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	ft_get_nbcmds(char **str)
+// int get_inquote_token(char *str)
+// {
+
+// }
+
+int	get_next_token(char *str)
 {
 	int	i;
-	int	nbcmds;
 
 	i = 0;
-	nbcmds = 0;
-	if (str[i])
-		nbcmds++;
-	while (str[i])
+	if (str[i] && ft_lexing(str[i]) == PIPE)
+		return (1);
+	if (str[i] && ft_lexing(str[i]) == GREATER)
 	{
-		if (!ft_strncmp(str[i], "|", 2))
-			nbcmds++;
-		i++;
+		if (ft_lexing(str[i + 1]) == GREATER)
+			return (2);
+		else
+			return (1);
 	}
-	return (nbcmds);
+	if (str[i] && ft_lexing(str[i]) == SMALLER)
+	{
+		if (ft_lexing(str[i + 1]) == SMALLER)
+			return (2);
+		else
+			return (1);
+	}
+	// if (str[i] && (ft_lexing(str[i]) == SQUOTE || ft_lexing(str[i]) == DQUOTE))
+	// 	i = get_inquote_token(str);
+	else if (str[i] && ft_lexing(str[i]) == WORD)
+		while (str[i] && ft_lexing(str[i]) == WORD)
+			i++;
+	return (i);
 }
 
-int	parse_commandline(t_data *data)
+t_token_node *parse_commandline(char *commandline)
 {
-	int		returnval;
-	int		nb_cmds;
-	int		i;
+	t_token_node *token_list = NULL;
+	char *temp;
+	int	start;
+	size_t	len;
+	start = 0;
+	len = 0;
 
-	i = 1;
-	returnval = 0;
-	ft_command_line_to_args(data);
-//	ft_print_args(data->args);
-	ft_parse_args(data);
-//	ft_print_args(data->args);
-	nb_cmds = ft_get_nbcmds(data->args);
-	while (i <= nb_cmds)
+	while (commandline[start])
 	{
-		ft_make_command(i, data);
-		returnval =	exec_command(data);
-		ft_free_command(data);
-		i++;
+		if(ft_lexing(commandline[start]) <= DQUOTE)
+		{
+			len = get_next_token(&commandline[start]);
+			temp = ft_substr(commandline, start, len);
+			start += (int)len;
+			add_token_node(&token_list, temp);
+			free(temp);
+		}
+		else
+		{
+			start++;
+			len = 0;
+		}
 	}
-	ft_free_allocated_mem(data);
-	return (returnval);
+	return (token_list);
 }
-
-
-

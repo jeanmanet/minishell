@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 09:28:44 by jmanet            #+#    #+#             */
-/*   Updated: 2022/12/29 09:29:43 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/03/07 12:34:09 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int	exec_command(t_data *data)
 	{
 		if (cmd_is_builtin(data))
 		{
-			ft_redirect_io(data);
 			returnval = exec_builtin(data);
 			dup2(0,1);
 		}
@@ -34,23 +33,22 @@ int	exec_processus(t_data *data)
 {
 	pid_t	pid;
 	char	**cmd;
+	char	*relative_cmd;
 	int		status;
 
 	cmd = data->command->args;
-	cmd[0] = get_current_command(cmd[0], data->envp);
-	if (cmd[0])
+	relative_cmd = get_current_command(cmd[0], data->envp);
+	if (relative_cmd)
 	{
 		pid = fork();
 		if (pid == 0)
 		{
-			if (!ft_redirect_io(data))
-				execve(cmd[0], cmd, data->envp);
-			else
-				exit(1);
+				execve(relative_cmd, cmd, data->envp);
 		}
 		else
 		{
 			waitpid(pid, &status, 0);
+			free(relative_cmd);
 			return (WEXITSTATUS(status));
 		}
 	}
