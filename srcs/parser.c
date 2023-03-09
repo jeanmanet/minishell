@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 10:55:24 by jmanet            #+#    #+#             */
-/*   Updated: 2023/03/09 09:22:10 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/03/09 09:46:40 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ t_token_node	*parse_commandline(char *commandline)
 				temp = ft_substr(commandline, start, len);
 			else
 				temp = ft_substr(commandline, start + 1, len - 2);
+			add_token_node(&token_list, temp, ft_lexing(commandline[start]));
 			start += (int)len;
-			add_token_node(&token_list, temp);
 			free(temp);
 		}
 		else

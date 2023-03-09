@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:09:47 by jmanet            #+#    #+#             */
-/*   Updated: 2023/03/09 08:33:23 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/03/09 09:55:41 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,15 @@ enum	e_cmd_io{
 	TRUNC
 };
 
+enum	e_token_state{
+	S_IN_SQUOTE,
+	S_IN_DQUOTE,
+	S_NOT_IN_QUOTE
+};
+
 typedef struct t_token_node {
-    char *token;
+    char	*token;
+	int		q_state;
     struct t_token_node *next;
     struct t_token_node *prev;
 } t_token_node;
@@ -91,8 +98,8 @@ void	build_command(t_data *data);
 int		ft_lexing(char c);
 
 
-t_token_node *create_token_node(char *token);
-void add_token_node(t_token_node **list_head, char *token);
+t_token_node *create_token_node(char *token, int state);
+void add_token_node(t_token_node **list_head, char *token, int state);
 void print_tokens(t_token_node *list_head);
 
 t_token_node *parse_commandline(char *commandline);
