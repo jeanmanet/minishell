@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 10:55:24 by jmanet            #+#    #+#             */
-/*   Updated: 2023/03/09 09:46:40 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/03/09 11:12:39 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int	get_inquote_token(char *str)
 	c = str[i];
 	while (str[i + 1] != c)
 		i++;
-	printf ("i = %d\n", i);
 	return (i + 2);
 }
 

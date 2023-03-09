@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:09:47 by jmanet            #+#    #+#             */
-/*   Updated: 2023/03/09 09:55:41 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/03/09 11:37:50 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@ enum	e_lexer_type{
 };
 
 enum	e_cmd_io{
-	STDIN,
-	STDOUT,
-	INFILE,
-	HERE_DOC,
-	APPEND,
-	TRUNC
+	CMD_STDIN,
+	CMD_STDOUT,
+	CMD_INFILE,
+	CMD_HERE_DOC,
+	CMD_APPEND,
+	CMD_TRUNC
 };
 
 enum	e_token_state{

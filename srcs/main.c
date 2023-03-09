@@ -6,18 +6,46 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 22:03:37 by jmanet            #+#    #+#             */
-/*   Updated: 2023/03/07 14:01:14 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/03/09 11:37:30 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+// Attention, mettre des doubles guillemets vides pour une commande vide
+// laissent ouverts de nouveaux processus qui retournent au prompt
+// puisque la commande est null et non executée... A fixer !!!
 
-/* A faire :
+// Attention commande check_quotes non fonctionnelle si " ou ' seul !
 
-- Ajouter SQUOTE ET DQUOTE dans le parser
 
-*/
+int	check_quotes(char *str)
+{
+	int		i;
+	char	c;
+
+	i = 0;
+	while (str[i])
+	{
+		if ((ft_lexing(str[i]) == LEX_SQUOTE) || (ft_lexing(str[i]) == LEX_DQUOTE))
+		{
+			c = str[i];
+			i++;
+			while(str[i] && str[i] != c)
+			{
+				if (str[i] == '\0' || str[i + 1] == '\0')
+				{
+					printf("Error in command, some quotes aren't closed\n");
+					return (0);
+				}
+				i++;
+			}
+		}
+		else
+			i++;
+	}
+	return (1);
+}
 
 void	prompt(t_data *data)
 {
@@ -27,14 +55,17 @@ void	prompt(t_data *data)
 	//signal(SIGQUIT, ft_signal_handler);
 	data->command_line = readline("minishell > ");
 	add_history(data->command_line);
-	data->token_list = parse_commandline(data->command_line);
-	printf("Tokens dans la liste : ");
-	print_tokens(data->token_list);
-	build_command(data);
-	data->endstatus = exec_command(data);
-	free_mem(data);
-	//data->endstatus = parse_commandline(data);
-	// printf("valeur de sortie du programme : %d\n", data->endstatus);
+	if (check_quotes(data->command_line))
+	{
+		data->token_list = parse_commandline(data->command_line);
+		printf("Tokens dans la liste : ");
+		print_tokens(data->token_list);
+		build_command(data);
+		data->endstatus = exec_command(data);
+		free_mem(data);
+	}
+	else
+		free(data->command_line);
 }
 
 int	main(int argc, char **argv, char **envp)
