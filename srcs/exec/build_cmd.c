@@ -6,11 +6,11 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 11:24:38 by jmanet            #+#    #+#             */
-/*   Updated: 2023/03/07 13:53:50 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/03/10 09:31:01 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 void	ft_print_tab(char **tab)
 {

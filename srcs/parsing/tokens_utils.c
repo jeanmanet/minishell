@@ -6,11 +6,11 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 20:07:26 by jmanet            #+#    #+#             */
-/*   Updated: 2023/03/10 09:04:25 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/03/10 09:34:14 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 // Fonction pour créer un nouveau maillon avec le token donné
 t_token_node	*create_token_node(char *token, int state) {

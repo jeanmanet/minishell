@@ -6,11 +6,11 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 08:59:42 by jmanet            #+#    #+#             */
-/*   Updated: 2022/11/21 19:50:56 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/03/10 09:36:30 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 void	ft_exit_error(char *error_msg)
 {

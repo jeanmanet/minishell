@@ -6,14 +6,14 @@
 #    By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/17 12:02:12 by jmanet            #+#    #+#              #
-#    Updated: 2022/12/21 13:54:53 by jmanet           ###   ########.fr        #
+#    Updated: 2023/03/10 09:37:44 by jmanet           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 NAME = minishell
 
-SRCS = $(wildcard srcs/*.c)
+SRCS = $(wildcard srcs/*.c srcs/*/*.c srcs/*/*/*.c)
 
 INCLUDES = includes/minishell.h
 

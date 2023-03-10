@@ -6,11 +6,11 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 09:51:45 by jmanet            #+#    #+#             */
-/*   Updated: 2023/03/07 13:52:29 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/03/10 09:36:40 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 void free_tokens(t_token_node **list_head) {
     t_token_node *current_node = *list_head;

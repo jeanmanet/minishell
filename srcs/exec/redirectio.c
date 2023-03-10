@@ -6,11 +6,11 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 10:00:26 by jmanet            #+#    #+#             */
-/*   Updated: 2023/03/07 12:56:40 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/03/10 09:37:19 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 int	ft_redirect_input(t_data *data)
 {

@@ -6,11 +6,11 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 19:06:37 by jmanet            #+#    #+#             */
-/*   Updated: 2023/03/09 08:33:35 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/03/10 09:28:15 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 int	ft_lexing(char c)
 {
