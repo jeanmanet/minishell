@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 20:07:26 by jmanet            #+#    #+#             */
-/*   Updated: 2023/03/09 10:11:53 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/03/10 09:04:25 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,14 +71,14 @@ void	print_tokens(t_token_node *list_head)
     t_token_node *current_node = list_head;
     while (current_node != NULL)
     {
-        printf("'%s' ", current_node->token);
+        printf("[%s] ", current_node->token);
         if (current_node->q_state == S_IN_SQUOTE)
-                printf(" -> IN_SQUOTE ");
+                printf("-> IN_SQUOTE \n");
         if (current_node->q_state == S_IN_DQUOTE)
-                printf(" -> IN_DQUOTE ");
+                printf("-> IN_DQUOTE \n");
         if (current_node->q_state == S_NOT_IN_QUOTE)
-                printf(" -> NOT_IN_QUOTE ");
+                printf("-> NOT_IN_QUOTE \n");
         current_node = current_node->next;
     }
-    printf("\n");
+    printf("fin de la liste\n\n");
 }
