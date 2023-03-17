@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 22:03:37 by jmanet            #+#    #+#             */
-/*   Updated: 2023/03/10 09:23:29 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/03/17 12:19:48 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	prompt(t_data *data)
 	add_history(data->command_line);
 	if (check_quotes(data->command_line))
 	{
-		data->token_list = parse_commandline(data->command_line);
+		data->token_list = tokenizer(data->command_line);
 		printf("Tokens dans la liste : \n");
 		print_tokens(data->token_list);
 		build_command(data);

@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:09:47 by jmanet            #+#    #+#             */
-/*   Updated: 2023/03/09 11:37:50 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/03/17 12:17:28 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ t_token_node *create_token_node(char *token, int state);
 void add_token_node(t_token_node **list_head, char *token, int state);
 void print_tokens(t_token_node *list_head);
 
-t_token_node *parse_commandline(char *commandline);
+t_token_node *tokenizer(char *commandline);
 
 void	free_mem(t_data *data);
 #endif
