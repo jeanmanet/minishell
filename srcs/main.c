@@ -6,15 +6,13 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 22:03:37 by jmanet            #+#    #+#             */
-/*   Updated: 2023/03/18 19:24:28 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/03/18 22:25:47 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-// Attention, mettre des doubles guillemets vides pour une commande vide
-// laissent ouverts de nouveaux processus qui retournent au prompt
-// puisque la commande est null et non executée... A fixer !!!
+char	**global_envp;
 
 int	check_quotes(char *str)
 {
@@ -53,7 +51,6 @@ void	prompt(t_data *data)
 	if (check_quotes(data->command_line))
 	{
 		data->token_list = tokenizer(data->command_line);
-		//print_tokens(data->token_list);
 		parse_token_list(data);
 		execute_ast(data);
 		free_mem(data);
@@ -62,7 +59,7 @@ void	prompt(t_data *data)
 		free(data->command_line);
 }
 
-t_data	*data_init(char **envp)
+t_data	*data_init(void)
 {
 	t_data	*data;
 
@@ -73,7 +70,7 @@ t_data	*data_init(char **envp)
 	if (!data->commands_tree)
 		ft_exit_error("Memory allocation error \n");
 	data->commands_tree->root = NULL;
-	data->envp = ft_import_envp(envp, data);
+	//data->envp = ft_import_envp(envp, data);
 
 	return (data);
 }
@@ -83,7 +80,8 @@ int	main(int argc, char **argv, char **envp)
 	t_data	*data;
 
 	(void)argv;
-	data = data_init(envp);
+	data = data_init();
+	global_envp = ft_import_envp(envp);
 	if (argc > 1)
 	{
 		printf("Invalid argument(s), ");

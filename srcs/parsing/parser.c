@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 12:26:37 by jmanet            #+#    #+#             */
-/*   Updated: 2023/03/18 20:10:17 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/03/18 21:49:22 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ t_com	*current_command_init(t_token_node *token_list)
 	if (!cmd || !args)
 		ft_exit_error("Memory Allocation Error \n");
 	cmd->args = args;
-	printf("nombres d'arguments de la commande : %d\n", i);
 	return (cmd);
 }
 

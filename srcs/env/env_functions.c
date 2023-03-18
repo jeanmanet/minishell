@@ -6,30 +6,31 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 09:17:31 by jmanet            #+#    #+#             */
-/*   Updated: 2023/03/10 09:39:43 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/03/18 22:25:03 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../../includes/minishell.h"
 
-char	**ft_import_envp(char **envp, t_data *data)
+char	**ft_import_envp(char **envp)
 {
-	int	i;
-	i = 0;
+	char	**new_envp;
+	int		i;
 
+	i = 0;
 	while (envp[i])
 		i++;
-	data->envp = malloc(sizeof(char *) * i + 1);
-	if (!data->envp)
+	new_envp = malloc(sizeof(char *) * i + 1);
+	if (!new_envp)
 		ft_exit_error("Memory allocation error");
 	i = 0;
 	while (envp[i])
 	{
-		data->envp[i] = ft_strdup(envp[i]);
+		new_envp[i] = ft_strdup(envp[i]);
 		i++;
 	}
-	data->envp[i] = NULL;
-	return (data->envp);
+	new_envp[i] = NULL;
+	return (new_envp);
 }
 
 char	*ft_getenv(char *name, t_data *data)

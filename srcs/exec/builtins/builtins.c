@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 11:47:39 by jmanet            #+#    #+#             */
-/*   Updated: 2023/03/10 09:38:13 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/03/18 22:41:25 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,36 +84,40 @@ int	ft_export(t_data *data)
 	return (returnval);
 }
 
-int	cmd_is_builtin(t_data *data)
+int	cmd_is_builtin(t_com *command)
 {
-	if (!ft_strncmp(data->command->args[0], "exit", 5))
+	if (!ft_strncmp(command->args[0], "exit", 5))
 		return (1);
-	if (!ft_strncmp(data->command->args[0], "cd", 3))
+	if (!ft_strncmp(command->args[0], "cd", 3))
 		return (1);
-	if (!ft_strncmp(data->command->args[0], "pwd", 4))
+	if (!ft_strncmp(command->args[0], "pwd", 4))
 		return (1);
-	if (!ft_strncmp(data->command->args[0], "echo", 5))
+	if (!ft_strncmp(command->args[0], "echo", 5))
 		return (1);
-	if (!ft_strncmp(data->command->args[0], "export", 7))
+	if (!ft_strncmp(command->args[0], "export", 7))
 		return (1);
 	return(0);
 }
 
-int	exec_builtin(t_data *data)
+int	exec_builtin(t_com *command)
 {
-	if (!ft_strncmp(data->command->args[0], "exit", 5))
+	(void)command;
+	/*
+	if (!ft_strncmp(command->args[0], "exit", 5))
 	{
-		//free(data->command->command);
+		// free_mem()
 		exit (0);
 	}
-	if (!ft_strncmp(data->command->args[0], "cd", 3))
+	if (!ft_strncmp(command->args[0], "cd", 3))
 		return (ft_change_directory(data));
-	if (!ft_strncmp(data->command->args[0], "pwd", 4))
+	if (!ft_strncmp(command->args[0], "pwd", 4))
 		printf("%s\n", ft_getenv("PWD", data));
-	if (!ft_strncmp(data->command->args[0], "echo", 5))
-		return (ft_echo(data->command));
-	if (!ft_strncmp(data->command->args[0], "export", 7))
+	if (!ft_strncmp(command->args[0], "echo", 5))
+		return (ft_echo(command));
+	if (!ft_strncmp(command->args[0], "export", 7))
 		return (ft_export(data));
+
+*/
 	//faire la builtin "unset"
 	return(0);
 }
