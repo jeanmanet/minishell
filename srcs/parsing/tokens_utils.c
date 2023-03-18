@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 20:07:26 by jmanet            #+#    #+#             */
-/*   Updated: 2023/03/10 09:34:14 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/03/18 12:51:53 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,17 +68,26 @@ void	add_token_node(t_token_node **list_head, char *token, int state) {
 // Fonction pour afficher tous les tokens dans la liste
 void	print_tokens(t_token_node *list_head)
 {
-    t_token_node *current_node = list_head;
-    while (current_node != NULL)
-    {
-        printf("[%s] ", current_node->token);
-        if (current_node->q_state == S_IN_SQUOTE)
-                printf("-> IN_SQUOTE \n");
-        if (current_node->q_state == S_IN_DQUOTE)
-                printf("-> IN_DQUOTE \n");
-        if (current_node->q_state == S_NOT_IN_QUOTE)
-                printf("-> NOT_IN_QUOTE \n");
-        current_node = current_node->next;
-    }
-    printf("fin de la liste\n\n");
+	t_token_node *current_node = list_head;
+	while (current_node != NULL)
+	{
+		printf("Tokens dans la liste : \n");
+		printf("[%s] ", current_node->token);
+		if (current_node->q_state == S_IN_SQUOTE)
+			printf("-> IN_SQUOTE ,");
+		else if (current_node->q_state == S_IN_DQUOTE)
+			printf("-> IN_DQUOTE ,");
+		else if (current_node->q_state == S_NOT_IN_QUOTE)
+			printf("-> NOT_IN_QUOTE ,");
+		if (current_node->type == T_ARG)
+			printf(" type : ARG \n");
+		else if (current_node->type == T_REDIR_IN)
+			printf(" type : REDIR IN \n");
+		else if (current_node->type == T_REDIR_OUT)
+			printf(" type : REDIR OUT \n");
+		else if (current_node->type == T_PIPE)
+			printf(" type : PIPE \n");
+		current_node = current_node->next;
+	}
+	printf("fin de la liste\n\n");
 }

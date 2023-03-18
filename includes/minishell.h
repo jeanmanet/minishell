@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:09:47 by jmanet            #+#    #+#             */
-/*   Updated: 2023/03/17 12:17:28 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/03/18 19:23:33 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,6 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
-
-typedef struct t_com
-{
-	char	**args;
-	char	*infile;
-	char	*outfile;
-	int		cmd_input;
-	int		cmd_output;
-}t_com;
 
 enum	e_lexer_type{
 	LEX_WORD,
@@ -57,16 +48,67 @@ enum	e_token_state{
 	S_NOT_IN_QUOTE
 };
 
+enum	e_token_type{
+	T_ARG,
+	T_REDIR_IN,
+	T_REDIR_OUT,
+	T_PIPE
+};
+
+enum e_ast_node_type{
+	AST_CMD,
+	AST_PIPE
+};
+
 typedef struct t_token_node {
     char	*token;
 	int		q_state;
+	int		type;
     struct t_token_node *next;
     struct t_token_node *prev;
 } t_token_node;
 
+typedef struct t_com
+{
+	char	**args;
+	char	*infile;
+	char	*outfile;
+	int		cmd_input;
+	int		cmd_output;
+}t_com;
+
+typedef struct s_ast_node	t_ast_node;
+
+typedef struct t_pipe
+{
+	t_ast_node	*left;
+	t_ast_node	*right;
+}t_pipe;
+
+typedef union t_union
+{
+	t_pipe	*pipe;
+	t_com	*cmd;
+}t_union;
+
+typedef struct s_ast_node
+{
+	enum e_ast_node_type	type;
+	t_union				*content;
+}t_ast_node;
+
+
+typedef struct t_ast
+{
+	t_ast_node	*root;
+}	t_ast;
+
+
+
 typedef struct t_data
 {
 	t_token_node *token_list;
+	t_ast	*commands_tree;
 	char	*command_line;
 	char	**envp;
 	int		endstatus;
@@ -94,15 +136,17 @@ void	ft_signal_handler(int sig);
 void	ft_free_command(t_data *data);
 
 
-void	build_command(t_data *data);
+void	parse_token_list(t_data *data);
+// void	build_command(t_data *data);
 int		ft_lexing(char c);
-
+int	execute_ast(t_data *data);
 
 t_token_node *create_token_node(char *token, int state);
 void add_token_node(t_token_node **list_head, char *token, int state);
 void print_tokens(t_token_node *list_head);
 
 t_token_node *tokenizer(char *commandline);
+void	add_ast_node(t_data *data, t_union *content, int type);
 
 void	free_mem(t_data *data);
 #endif

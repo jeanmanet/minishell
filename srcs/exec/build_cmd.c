@@ -6,23 +6,11 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 11:24:38 by jmanet            #+#    #+#             */
-/*   Updated: 2023/03/10 09:31:01 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/03/18 12:45:31 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-void	ft_print_tab(char **tab)
-{
-	int	i;
-
-	i = 0;
-	while (tab[i])
-	{
-		printf("ligne %d de tab = %s \n", i, tab[i]);
-		i++;
-	}
-}
 
 char	**malloc_command_tab(int nb_tokens)
 {
@@ -60,5 +48,5 @@ void	build_command(t_data *data)
 		i++;
 	}
 	data->command->args[i] = NULL;
-	ft_print_tab(data->command->args);
+	data->command->args[0] = get_current_command(data->command->args[0], data->envp);
 }

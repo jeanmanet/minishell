@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 22:03:37 by jmanet            #+#    #+#             */
-/*   Updated: 2023/03/17 12:19:48 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/03/18 19:24:28 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,29 @@ void	prompt(t_data *data)
 	if (check_quotes(data->command_line))
 	{
 		data->token_list = tokenizer(data->command_line);
-		printf("Tokens dans la liste : \n");
-		print_tokens(data->token_list);
-		build_command(data);
-		data->endstatus = exec_command(data);
+		//print_tokens(data->token_list);
+		parse_token_list(data);
+		execute_ast(data);
 		free_mem(data);
 	}
 	else
 		free(data->command_line);
+}
+
+t_data	*data_init(char **envp)
+{
+	t_data	*data;
+
+	data = malloc(sizeof(*data));
+	if (!data)
+		ft_exit_error("Memory allocation error \n");
+	data->commands_tree = malloc(sizeof(t_ast));
+	if (!data->commands_tree)
+		ft_exit_error("Memory allocation error \n");
+	data->commands_tree->root = NULL;
+	data->envp = ft_import_envp(envp, data);
+
+	return (data);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -68,17 +83,16 @@ int	main(int argc, char **argv, char **envp)
 	t_data	*data;
 
 	(void)argv;
-	data = malloc(sizeof(*data));
-	data->command = malloc(sizeof(data->command));
-	data->envp = ft_import_envp(envp, data);
+	data = data_init(envp);
 	if (argc > 1)
 	{
-		printf("Invalid Arguments ");
+		printf("Invalid argument(s), ");
 		printf("this minishell doesn't execute scriptfiles !\n");
 	}
-	while (1)
-	{
-		prompt(data);
-	}
+	else
+		while (1)
+		{
+			prompt(data);
+		}
 	return (0);
 }
