@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:09:47 by jmanet            #+#    #+#             */
-/*   Updated: 2023/03/19 11:55:10 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/03/19 12:00:58 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ int		ft_redirect_io(t_data *data);
 int		open_infile(t_data *data);
 int		open_outfile(t_data *data);
 void	ft_signal_handler(int sig);
-void	ft_free_command(t_data *data);
+// void	ft_free_command(t_data *data);
 
 
 void	parse_token_list(t_data *data);
