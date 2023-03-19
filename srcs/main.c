@@ -6,13 +6,11 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 22:03:37 by jmanet            #+#    #+#             */
-/*   Updated: 2023/03/18 22:25:47 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/03/19 11:52:48 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-char	**global_envp;
 
 int	check_quotes(char *str)
 {
@@ -59,7 +57,7 @@ void	prompt(t_data *data)
 		free(data->command_line);
 }
 
-t_data	*data_init(void)
+t_data	*data_init(char **envp)
 {
 	t_data	*data;
 
@@ -70,7 +68,7 @@ t_data	*data_init(void)
 	if (!data->commands_tree)
 		ft_exit_error("Memory allocation error \n");
 	data->commands_tree->root = NULL;
-	//data->envp = ft_import_envp(envp, data);
+	data->envp = ft_import_envp(envp);
 
 	return (data);
 }
@@ -80,8 +78,7 @@ int	main(int argc, char **argv, char **envp)
 	t_data	*data;
 
 	(void)argv;
-	data = data_init();
-	global_envp = ft_import_envp(envp);
+	data = data_init(envp);
 	if (argc > 1)
 	{
 		printf("Invalid argument(s), ");

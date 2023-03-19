@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:09:47 by jmanet            #+#    #+#             */
-/*   Updated: 2023/03/18 22:38:43 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/03/19 11:55:10 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
-
-extern	char	**global_envp;
 
 enum	e_lexer_type{
 	LEX_WORD,
@@ -123,11 +121,11 @@ char	**ft_import_envp(char **envp);
 
 char	*ft_getenv(char *name, t_data *data);
 int		ft_setenv(char *name, char *value, int overwrite, t_data *data);
-int		ft_change_directory(t_data *data);
-int		exec_command(t_com *command);
-int		exec_processus(t_com *command);
+int		ft_change_directory(t_com *command, t_data *data);
+int		exec_command(t_com *command, t_data *data);
+int		exec_processus(t_com *command, t_data *data);
 int		cmd_is_builtin(t_com *command);
-int		exec_builtin(t_com *command);
+int		exec_builtin(t_com *command, t_data *data);
 void	exit_cmd_strerror(char *cmd_name);
 void	cmd_not_found(char *cmd_name);
 void	ft_exit_error(char *error_msg);

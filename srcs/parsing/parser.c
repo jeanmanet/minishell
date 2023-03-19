@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 12:26:37 by jmanet            #+#    #+#             */
-/*   Updated: 2023/03/18 21:49:22 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/03/19 11:42:03 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ void	parse_token_list(t_data *data)
 		}
 		else if (token_list_head->type == T_PIPE)
 		{
-			printf("Pipe\n");
 			current_command->args[i] = NULL;
 			token_list_head = token_list_head->next;
 			add_ast_node(data, init_cmd_union(current_command), AST_CMD);
