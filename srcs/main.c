@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 22:03:37 by jmanet            #+#    #+#             */
-/*   Updated: 2023/03/19 11:52:48 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/03/20 11:10:18 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int	check_quotes(char *str)
 
 	i = 0;
 	nb_quotes = 0;
+	if (!str || !*str)
+		return (0);
 	while (str[i])
 	{
 		if ((ft_lexing(str[i]) == LEX_SQUOTE)
@@ -46,7 +48,7 @@ void	prompt(t_data *data)
 	//signal(SIGQUIT, ft_signal_handler);
 	data->command_line = readline("minishell > ");
 	add_history(data->command_line);
-	if (check_quotes(data->command_line))
+	if (ft_strlen(data->command_line) > 0 && check_quotes(data->command_line))
 	{
 		data->token_list = tokenizer(data->command_line);
 		parse_token_list(data);
