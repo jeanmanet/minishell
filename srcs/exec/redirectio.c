@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 10:00:26 by jmanet            #+#    #+#             */
-/*   Updated: 2023/03/10 09:37:19 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/03/20 09:00:48 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,17 @@ int	ft_redirect_output(t_data *data)
 		dup2(fd, 1);
 	close(fd);
 	return (0);
+}
+
+int	ft_redirect_io (t_com *command, t_data *data)
+{
+	int	returnval;
+
+	returnval = 0;
+	(void)command;
+	(void)data;
+	//fonction appelee a l'execution, qui appelle
+	//ft_redirect_input et/ou ft_redirect_output si necessaire
+
+	return(returnval);
 }

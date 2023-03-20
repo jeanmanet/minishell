@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:09:47 by jmanet            #+#    #+#             */
-/*   Updated: 2023/03/19 12:00:58 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/03/20 09:00:22 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ typedef struct t_data
 
 }	t_data;
 
-char	*get_current_command(char	*arg, char **envp);
+char	*get_absolute_command(char	*arg, char **envp);
 char	**ft_import_envp(char **envp);
 
 char	*ft_getenv(char *name, t_data *data);
@@ -129,15 +129,13 @@ int		exec_builtin(t_com *command, t_data *data);
 void	exit_cmd_strerror(char *cmd_name);
 void	cmd_not_found(char *cmd_name);
 void	ft_exit_error(char *error_msg);
-int		ft_redirect_io(t_data *data);
+int		ft_redirect_io (t_com *command, t_data *data);
 int		open_infile(t_data *data);
 int		open_outfile(t_data *data);
 void	ft_signal_handler(int sig);
-// void	ft_free_command(t_data *data);
 
 
 void	parse_token_list(t_data *data);
-// void	build_command(t_data *data);
 int		ft_lexing(char c);
 int	execute_ast(t_data *data);
 
@@ -149,4 +147,7 @@ t_token_node *tokenizer(char *commandline);
 void	add_ast_node(t_data *data, t_union *content, int type);
 
 void	free_mem(t_data *data);
+
+t_union	*init_cmd_union(t_com *command);
+t_union	*init_pipe_union(void);
 #endif

@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 10:26:17 by jmanet            #+#    #+#             */
-/*   Updated: 2023/03/10 09:36:02 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/03/20 08:58:37 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ char	*ft_absolute_path(char *cmd, const char *PATH)
 	return (NULL);
 }
 
-char	*get_current_command(char	*arg, char **envp)
+char	*get_absolute_command(char	*arg, char **envp)
 {
 	char	*cmd;
 	char	*path;
