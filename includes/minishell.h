@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:09:47 by jmanet            #+#    #+#             */
-/*   Updated: 2023/03/20 16:06:03 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/03/20 16:46:41 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ int		exec_builtin(t_com *command, t_data *data);
 void	exit_cmd_strerror(char *cmd_name);
 void	cmd_not_found(char *cmd_name);
 void	ft_exit_error(char *error_msg);
-int		ft_redirect_io (t_com *command, t_data *data);
+int		ft_redirect_io (t_com *command);
 int		open_infile(t_data *data);
 int		open_outfile(t_data *data);
 void	ft_signal_handler(int sig);

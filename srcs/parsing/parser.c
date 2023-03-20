@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 12:26:37 by jmanet            #+#    #+#             */
-/*   Updated: 2023/03/20 16:05:54 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/03/20 17:03:29 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ t_com	*get_command_node(t_token_node *token_list)
 		}
 		else if (token_list->type == T_REDIR_OUT)
 		{
-			command->cmd_input_mode = get_openfile_type(token_list->token);
+			command->cmd_output_mode = get_openfile_type(token_list->token);
 			token_list = token_list->next;
 			command->outfile = token_list->token;
 		}

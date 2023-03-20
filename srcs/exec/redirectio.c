@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 10:00:26 by jmanet            #+#    #+#             */
-/*   Updated: 2023/03/20 16:28:25 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/03/20 16:46:19 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,11 @@ int	ft_redirect_output(t_com *command)
 {
 	int	fd;
 
-	fd = open(command->outfile, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+
+	if (command->cmd_output_mode == CMD_APPEND)
+		fd = open(command->outfile, O_CREAT | O_WRONLY | O_APPEND, 0644);
+	else
+		fd = open(command->outfile, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd == -1)
 	{
 		write(2, strerror(errno), ft_strlen(strerror(errno)));
@@ -86,15 +90,14 @@ int	ft_redirect_output(t_com *command)
 	return (0);
 }
 
-int	ft_redirect_io(t_com *command, t_data *data)
+int	ft_redirect_io(t_com *command)
 {
 	int	returnval;
 
 	returnval = 0;
 	if (command->cmd_input_mode != CMD_STDIN)
 		returnval = -ft_redirect_input(command);
-	(void)data;
-	//fonction appelee a l'execution, qui appelle
-	//ft_redirect_input et/ou ft_redirect_output si necessaire
+	if (command->cmd_output_mode != CMD_STDOUT)
+		returnval = -ft_redirect_output(command);
 	return (returnval);
 }
