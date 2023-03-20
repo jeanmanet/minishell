@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 09:28:44 by jmanet            #+#    #+#             */
-/*   Updated: 2023/03/20 12:29:50 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/03/20 16:15:10 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,11 @@
 int	exec_command(t_com *command, t_data *data)
 {
 	int	returnval;
-	int saved_stdin = dup(STDIN_FILENO);
-	int saved_stdout = dup(STDOUT_FILENO);
+	int saved_stdin;
+	int saved_stdout;
 
+	saved_stdin = dup(STDIN_FILENO);
+	saved_stdout = dup(STDOUT_FILENO);
 	returnval = 0;
 	if (!ft_redirect_io(command, data) && command->args[0] != NULL)
 	{
@@ -28,6 +30,11 @@ int	exec_command(t_com *command, t_data *data)
 	}
 	dup2(saved_stdin, STDIN_FILENO);
 	dup2(saved_stdout, STDOUT_FILENO);
+	if (command->cmd_input_mode == CMD_HERE_DOC)
+	{
+		unlink(command->infile);
+		free(command->infile);
+	}
 	return (returnval);
 }
 

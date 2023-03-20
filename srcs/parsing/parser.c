@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 12:26:37 by jmanet            #+#    #+#             */
-/*   Updated: 2023/03/20 08:42:07 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/03/20 16:05:54 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,11 @@ t_com	*current_command_init(t_token_node *token_list)
 	if (!cmd || !args)
 		ft_exit_error("Memory Allocation Error \n");
 	cmd->args = args;
-	cmd->cmd_input = CMD_STDIN;
-	cmd->cmd_output = CMD_STDOUT;
+	cmd->cmd_input_mode = CMD_STDIN;
+	cmd->cmd_output_mode = CMD_STDOUT;
 	cmd->infile = NULL;
 	cmd->outfile = NULL;
+	cmd->here_doc_limiter = NULL;
 	return (cmd);
 }
 
@@ -79,13 +80,13 @@ t_com	*get_command_node(t_token_node *token_list)
 			command->args[i++] = token_list->token;
 		else if (token_list->type == T_REDIR_IN)
 		{
-			command->cmd_input = get_openfile_type(token_list->token);
+			command->cmd_input_mode = get_openfile_type(token_list->token);
 			token_list = token_list->next;
 			command->infile = token_list->token;
 		}
 		else if (token_list->type == T_REDIR_OUT)
 		{
-			command->cmd_input = get_openfile_type(token_list->token);
+			command->cmd_input_mode = get_openfile_type(token_list->token);
 			token_list = token_list->next;
 			command->outfile = token_list->token;
 		}

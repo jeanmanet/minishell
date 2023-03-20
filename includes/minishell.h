@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:09:47 by jmanet            #+#    #+#             */
-/*   Updated: 2023/03/20 09:00:22 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/03/20 16:06:03 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,9 @@ typedef struct t_com
 	char	**args;
 	char	*infile;
 	char	*outfile;
-	int		cmd_input;
-	int		cmd_output;
+	char	*here_doc_limiter;
+	int		cmd_input_mode;
+	int		cmd_output_mode;
 }t_com;
 
 typedef struct s_ast_node	t_ast_node;
