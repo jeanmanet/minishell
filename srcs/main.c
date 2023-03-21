@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 22:03:37 by jmanet            #+#    #+#             */
-/*   Updated: 2023/03/20 11:10:18 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/03/21 15:17:10 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,22 +41,48 @@ int	check_quotes(char *str)
 	return (!(nb_quotes % 2));
 }
 
+void	ft_add_var(t_data *data)
+{
+	t_token_node *list_tokens;
+
+	list_tokens = data->token_list;
+		if (list_tokens->q_state == S_NOT_IN_QUOTE && list_tokens->type == T_ARG)
+		{
+			if (ft_ischarset(list_tokens->token, '='))
+			{
+				list_tokens->type = T_VAR;
+				if (list_tokens->next == NULL)
+					printf("Appel de la fonction qui ajoute la variable dans la liste\n");
+			}
+
+		}
+}
+
 void	prompt(t_data *data)
 {
-	//signal(SIGSEGV, ft_signal_handler);
-	//signal(SIGINT, ft_signal_handler);
-	//signal(SIGQUIT, ft_signal_handler);
+
+	ft_signal_handler();
 	data->command_line = readline("minishell > ");
 	add_history(data->command_line);
-	if (ft_strlen(data->command_line) > 0 && check_quotes(data->command_line))
+	if (data->command_line)
 	{
-		data->token_list = tokenizer(data->command_line);
-		parse_token_list(data);
-		execute_ast(data);
-		free_mem(data);
+		if (ft_strlen(data->command_line) > 0 && check_quotes(data->command_line))
+		{
+			data->token_list = tokenizer(data->command_line);
+			ft_add_var(data);
+			parse_token_list(data);
+			execute_ast(data);
+			free_mem(data);
+		}
+		else
+			free(data->command_line);
 	}
 	else
-		free(data->command_line);
+	{
+		printf("line vaut null -> exit\n");
+		exit(0);
+	}
+
 }
 
 t_data	*data_init(char **envp)
@@ -71,6 +97,7 @@ t_data	*data_init(char **envp)
 		ft_exit_error("Memory allocation error \n");
 	data->commands_tree->root = NULL;
 	data->envp = ft_import_envp(envp);
+	data->pid = 0;
 
 	return (data);
 }

@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:09:47 by jmanet            #+#    #+#             */
-/*   Updated: 2023/03/20 16:46:41 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/03/21 14:36:32 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ enum	e_token_type{
 	T_ARG,
 	T_REDIR_IN,
 	T_REDIR_OUT,
+	T_VAR,
 	T_PIPE
 };
 
@@ -104,8 +105,6 @@ typedef struct t_ast
 	t_ast_node	*root;
 }	t_ast;
 
-
-
 typedef struct t_data
 {
 	t_token_node *token_list;
@@ -114,6 +113,7 @@ typedef struct t_data
 	char	**envp;
 	int		endstatus;
 	t_com	*command;
+	pid_t	pid;
 
 }	t_data;
 
@@ -133,7 +133,7 @@ void	ft_exit_error(char *error_msg);
 int		ft_redirect_io (t_com *command);
 int		open_infile(t_data *data);
 int		open_outfile(t_data *data);
-void	ft_signal_handler(int sig);
+void	ft_signal_handler(void);
 
 
 void	parse_token_list(t_data *data);
