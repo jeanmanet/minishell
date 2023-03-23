@@ -6,16 +6,21 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 09:51:45 by jmanet            #+#    #+#             */
-/*   Updated: 2023/03/20 10:48:47 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/03/23 15:00:40 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	free_tokens(t_token_node **list_head) {
-	t_token_node *current_node = *list_head;
-	while (current_node != NULL) {
-		t_token_node *temp_node = current_node;
+void	free_tokens(t_token_node **list_head)
+{
+	t_token_node	*current_node;
+	t_token_node	*temp_node;
+
+	current_node = *list_head;
+	while (current_node != NULL)
+	{
+		temp_node = current_node;
 		current_node = current_node->next;
 		free(temp_node->token);
 		free(temp_node);
@@ -25,10 +30,10 @@ void	free_tokens(t_token_node **list_head) {
 
 void	free_cmd_node(t_ast_node	*cmd_node)
 {
-		free(cmd_node->content->cmd->args);
-		free(cmd_node->content->cmd);
-		free(cmd_node->content);
-		free(cmd_node);
+	free(cmd_node->content->cmd->args);
+	free(cmd_node->content->cmd);
+	free(cmd_node->content);
+	free(cmd_node);
 }
 
 void	free_pipe_node(t_ast_node	*pipe_node)
@@ -55,6 +60,6 @@ void	free_ast(t_ast	*ast_tree)
 void	free_mem(t_data *data)
 {
 	free(data->command_line);
-    free_tokens(&data->token_list);
-    free_ast(data->commands_tree);
+	free_tokens(&data->token_list);
+	free_ast(data->commands_tree);
 }

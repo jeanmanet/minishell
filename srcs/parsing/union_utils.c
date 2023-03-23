@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 08:37:06 by jmanet            #+#    #+#             */
-/*   Updated: 2023/03/20 08:37:37 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/03/23 15:32:46 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,3 @@ t_union	*init_pipe_union(void)
 	pipe_union->pipe->right = NULL;
 	return (pipe_union);
 }
-

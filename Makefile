@@ -6,7 +6,7 @@
 #    By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/17 12:02:12 by jmanet            #+#    #+#              #
-#    Updated: 2023/03/10 09:37:44 by jmanet           ###   ########.fr        #
+#    Updated: 2023/03/22 12:00:36 by jmanet           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,9 @@ FLAGS = -Wall -Werror -Wextra -g
 
 LIBFT = libft/libft.a
 
-LIBS = ${LIBFT} -lreadline
+LREADLINE = -lreadline
+
+LIBS = ${LIBFT} ${LREADLINE}
 
 
 .c.o:

@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 11:47:39 by jmanet            #+#    #+#             */
-/*   Updated: 2023/03/19 12:01:10 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/03/23 15:10:29 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_echo(t_com *command)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	if (!command->args[1])
@@ -40,7 +40,7 @@ int	ft_echo(t_com *command)
 
 char	*var_name(char *str)
 {
-	int	i;
+	int		i;
 	char	*varname;
 
 	i = 0;
@@ -61,7 +61,7 @@ char	*var_name(char *str)
 	return (varname);
 }
 
-int	ft_export(t_data *data)
+int	ft_export(t_com *command, t_data *data)
 {
 	char	*name;
 	char	*value;
@@ -70,12 +70,12 @@ int	ft_export(t_data *data)
 
 	returnval = 0;
 	i = 1;
-	while (data->command->args[i])
+	while (command->args[i])
 	{
-		name = var_name(data->command->args[i]);
+		name = var_name(command->args[i]);
 		if (name)
 		{
-			value = ft_strdup(data->command->args[i]);
+			value = ft_strdup(command->args[i]);
 			returnval = ft_setenv(name, value, 1, data);
 		}
 		free(name);
@@ -96,7 +96,7 @@ int	cmd_is_builtin(t_com *command)
 		return (1);
 	if (!ft_strncmp(command->args[0], "export", 7))
 		return (1);
-	return(0);
+	return (0);
 }
 
 int	exec_builtin(t_com *command, t_data *data)
@@ -113,8 +113,7 @@ int	exec_builtin(t_com *command, t_data *data)
 	if (!ft_strncmp(command->args[0], "echo", 5))
 		return (ft_echo(command));
 	if (!ft_strncmp(command->args[0], "export", 7))
-		return (ft_export(data));
-
+		return (ft_export(command, data));
 	//faire la builtin "unset"
-	return(0);
+	return (0);
 }

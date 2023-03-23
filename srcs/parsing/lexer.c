@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 19:06:37 by jmanet            #+#    #+#             */
-/*   Updated: 2023/03/10 09:28:15 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/03/23 15:32:10 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,16 @@
 int	ft_lexing(char c)
 {
 	if (ft_isspace(c))
-		return(LEX_SPACE);
+		return (LEX_SPACE);
 	else if (c == '<')
-		return(LEX_SMALLER);
+		return (LEX_SMALLER);
 	else if (c == '>')
 		return (LEX_GREATER);
 	else if (c == '|')
 		return (LEX_PIPE);
 	else if (c == '\'')
-		return(LEX_SQUOTE);
+		return (LEX_SQUOTE);
 	else if (c == '"')
 		return (LEX_DQUOTE);
-	return(LEX_WORD);
+	return (LEX_WORD);
 }
-
-

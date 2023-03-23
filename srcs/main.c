@@ -6,11 +6,13 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 22:03:37 by jmanet            #+#    #+#             */
-/*   Updated: 2023/03/21 15:17:10 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/03/23 14:56:31 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+pid_t	g_pid;
 
 int	check_quotes(char *str)
 {
@@ -43,30 +45,29 @@ int	check_quotes(char *str)
 
 void	ft_add_var(t_data *data)
 {
-	t_token_node *list_tokens;
+	t_token_node	*list_tokens;
 
 	list_tokens = data->token_list;
-		if (list_tokens->q_state == S_NOT_IN_QUOTE && list_tokens->type == T_ARG)
+	if (list_tokens->q_state == S_NOT_IN_QUOTE && list_tokens->type == T_ARG)
+	{
+		if (ft_ischarset(list_tokens->token, '='))
 		{
-			if (ft_ischarset(list_tokens->token, '='))
-			{
-				list_tokens->type = T_VAR;
-				if (list_tokens->next == NULL)
-					printf("Appel de la fonction qui ajoute la variable dans la liste\n");
-			}
-
+			list_tokens->type = T_VAR;
+			if (list_tokens->next == NULL)
+				printf("Appel de la fonction qui ajoute la var dans la liste\n");
 		}
+	}
 }
 
 void	prompt(t_data *data)
 {
-
 	ft_signal_handler();
 	data->command_line = readline("minishell > ");
 	add_history(data->command_line);
 	if (data->command_line)
 	{
-		if (ft_strlen(data->command_line) > 0 && check_quotes(data->command_line))
+		if (ft_strlen(data->command_line) > 0
+			&& check_quotes(data->command_line))
 		{
 			data->token_list = tokenizer(data->command_line);
 			ft_add_var(data);
@@ -79,10 +80,9 @@ void	prompt(t_data *data)
 	}
 	else
 	{
-		printf("line vaut null -> exit\n");
+		printf("exit\n");
 		exit(0);
 	}
-
 }
 
 t_data	*data_init(char **envp)
@@ -98,7 +98,6 @@ t_data	*data_init(char **envp)
 	data->commands_tree->root = NULL;
 	data->envp = ft_import_envp(envp);
 	data->pid = 0;
-
 	return (data);
 }
 
@@ -115,8 +114,6 @@ int	main(int argc, char **argv, char **envp)
 	}
 	else
 		while (1)
-		{
 			prompt(data);
-		}
 	return (0);
 }

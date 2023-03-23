@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 09:28:44 by jmanet            #+#    #+#             */
-/*   Updated: 2023/03/20 16:47:01 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/03/23 15:05:30 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 int	exec_command(t_com *command, t_data *data)
 {
 	int	returnval;
-	int saved_stdin;
-	int saved_stdout;
+	int	saved_stdin;
+	int	saved_stdout;
 
 	saved_stdin = dup(STDIN_FILENO);
 	saved_stdout = dup(STDOUT_FILENO);
@@ -40,7 +40,6 @@ int	exec_command(t_com *command, t_data *data)
 
 int	exec_processus(t_com *command, t_data *data)
 {
-	pid_t	pid;
 	char	**cmd;
 	char	*absolute_cmd;
 	int		status;
@@ -49,12 +48,12 @@ int	exec_processus(t_com *command, t_data *data)
 	absolute_cmd = get_absolute_command(cmd[0], data->envp);
 	if (absolute_cmd)
 	{
-		pid = fork();
-		if (pid == 0)
+		g_pid = fork();
+		if (g_pid == 0)
 			execve(absolute_cmd, cmd, data->envp);
 		else
 		{
-			waitpid(pid, &status, 0);
+			waitpid(g_pid, &status, 0);
 			free(absolute_cmd);
 			return (WEXITSTATUS(status));
 		}

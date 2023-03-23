@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 10:00:26 by jmanet            #+#    #+#             */
-/*   Updated: 2023/03/20 16:46:19 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/03/23 15:17:14 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ int	ft_redirect_input(t_com *command)
 int	ft_redirect_output(t_com *command)
 {
 	int	fd;
-
 
 	if (command->cmd_output_mode == CMD_APPEND)
 		fd = open(command->outfile, O_CREAT | O_WRONLY | O_APPEND, 0644);

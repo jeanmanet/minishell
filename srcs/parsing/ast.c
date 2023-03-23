@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 16:52:27 by jmanet            #+#    #+#             */
-/*   Updated: 2023/03/18 20:07:40 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/03/23 15:17:48 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 void	add_ast_node(t_data *data, t_union *content, int type)
 {
-	t_ast_node *new_node;
-
+	t_ast_node	*new_node;
 
 	new_node = malloc(sizeof(t_ast_node));
 	if (!new_node)
