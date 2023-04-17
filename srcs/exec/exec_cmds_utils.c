@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 10:26:17 by jmanet            #+#    #+#             */
-/*   Updated: 2023/03/23 15:06:23 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/04/17 17:02:10 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	*ft_absolute_path(char *cmd, const char *PATH)
 
 	i = 0;
 	paths = ft_split(PATH, ':');
-	while (paths[i])
+	while (paths && paths[i])
 	{
 		tmp = ft_strjoin(paths[i], "/");
 		current_path = ft_strjoin(tmp, cmd);
@@ -63,7 +63,6 @@ char	*ft_absolute_path(char *cmd, const char *PATH)
 		free(current_path);
 		i++;
 	}
-	free_tab_str_cmd(paths);
 	return (NULL);
 }
 
