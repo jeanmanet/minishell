@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 10:55:24 by jmanet            #+#    #+#             */
-/*   Updated: 2023/03/23 15:38:02 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/04/25 10:57:31 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,14 +60,14 @@ void	get_token_type(t_token_node *token_list)
 		{
 			token_list->type = T_REDIR_OUT;
 			token_list = token_list->next;
-			token_list->type = T_REDIR_OUT;
+			token_list->type = T_REDIR_FILE;
 		}
 		if ((ft_lexing(token_list->token[0]) == LEX_SMALLER)
 			&& token_list->q_state == S_NOT_IN_QUOTE)
 		{
 			token_list->type = T_REDIR_IN;
 			token_list = token_list->next;
-			token_list->type = T_REDIR_IN;
+			token_list->type = T_REDIR_FILE;
 		}
 		if ((ft_lexing(token_list->token[0]) == LEX_PIPE)
 			&& token_list->q_state == S_NOT_IN_QUOTE)

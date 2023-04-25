@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:09:47 by jmanet            #+#    #+#             */
-/*   Updated: 2023/03/23 14:50:45 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/04/25 10:56:31 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ enum	e_token_type{
 	T_ARG,
 	T_REDIR_IN,
 	T_REDIR_OUT,
+	T_REDIR_FILE,
 	T_VAR,
 	T_PIPE
 };
