@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 22:03:37 by jmanet            #+#    #+#             */
-/*   Updated: 2023/03/23 14:56:31 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/04/25 12:55:22 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,22 +41,6 @@ int	check_quotes(char *str)
 	if (nb_quotes % 2 != 0)
 		printf("Error in command, some quotes aren't closed \n");
 	return (!(nb_quotes % 2));
-}
-
-void	ft_add_var(t_data *data)
-{
-	t_token_node	*list_tokens;
-
-	list_tokens = data->token_list;
-	if (list_tokens->q_state == S_NOT_IN_QUOTE && list_tokens->type == T_ARG)
-	{
-		if (ft_ischarset(list_tokens->token, '='))
-		{
-			list_tokens->type = T_VAR;
-			if (list_tokens->next == NULL)
-				printf("Appel de la fonction qui ajoute la var dans la liste\n");
-		}
-	}
 }
 
 void	prompt(t_data *data)
