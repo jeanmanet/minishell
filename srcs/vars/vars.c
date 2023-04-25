@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 12:21:31 by jmanet            #+#    #+#             */
-/*   Updated: 2023/04/25 12:55:06 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/04/25 18:51:19 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,13 @@ int	tokenlist_contains_only_vars(t_data *data)
 	return (1);
 }
 
+int	token_is_in_quote(t_token_node *token)
+{
+	if (token->type == S_NOT_IN_QUOTE)
+		return (0);
+	return (1);
+}
+
 void	ft_add_var(t_data *data)
 {
 	t_token_node	*list_tokens;
@@ -33,19 +40,23 @@ void	ft_add_var(t_data *data)
 	list_tokens = data->token_list;
 	while (list_tokens)
 	{
-		if (list_tokens->q_state == S_NOT_IN_QUOTE
-			&& list_tokens->type == T_ARG)
+		if (list_tokens->type == T_PIPE)
+			list_tokens = list_tokens->next;
+		if (token_is_in_quote(list_tokens) && list_tokens->type == T_ARG)
 		{
 			if (ft_ischarset(list_tokens->token, '='))
 			{
 				list_tokens->type = T_VAR;
-				if (list_tokens->next
-					&& list_tokens->next->q_state != S_NOT_IN_QUOTE)
-					list_tokens->next->type = T_VAR;
-				break ;
+				if (list_tokens->next && token_is_in_quote(list_tokens->next))
+				{
+					if (list_tokens->token[ft_strlen(list_tokens->token) - 1]
+						== '=')
+						list_tokens->next->type = T_VAR;
+				}
 			}
 		}
-		list_tokens = list_tokens->next;
+		while (list_tokens && list_tokens->type != T_PIPE)
+			list_tokens = list_tokens->next;
 	}
 	if (tokenlist_contains_only_vars(data))
 		printf("Appel de la fonction qui ajoute la var dans la liste\n");

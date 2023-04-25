@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 09:17:31 by jmanet            #+#    #+#             */
-/*   Updated: 2023/03/23 15:02:13 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/04/25 20:06:26 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,27 +47,40 @@ char	*ft_getenv(char *name, t_data *data)
 	return (NULL);
 }
 
+char	**init_envp(int len)
+{
+	char	**envp;
+
+	envp = malloc(sizeof(char *) * (len + 2));
+	if (!envp)
+	{
+		printf("Memory allocation error\n");
+		return (NULL);
+	}
+	return (envp);
+}
+
 int	ft_addtoenv(char *value, t_data *data)
 {
 	char	**newenv;
+	char	**oldenv;
 	int		i;
 
 	i = 0;
-	while (data->envp[i])
+	oldenv = data->envp;
+	while (oldenv[i])
 		i++;
-	newenv = malloc(sizeof(char *) * i + 1);
-	if (!newenv)
-		return (0);
+	newenv = init_envp(i);
 	i = 0;
-	while (data->envp[i])
+	while (oldenv[i])
 	{
-		newenv[i] = data->envp[i];
+		newenv[i] = oldenv[i];
 		i++;
 	}
 	newenv[i] = value;
 	i++;
 	newenv[i] = NULL;
-	free(data->envp);
+	free(oldenv);
 	data->envp = newenv;
 	return (1);
 }
