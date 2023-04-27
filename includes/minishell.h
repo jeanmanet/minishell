@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:09:47 by jmanet            #+#    #+#             */
-/*   Updated: 2023/04/25 10:56:31 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/04/27 10:25:33 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,14 @@
 # include <fcntl.h>
 
 extern pid_t				g_pid;
+
+typedef struct s_lst_var
+{
+	char				*name;
+	char				*value;
+	struct s_lst_var	*previous;
+	struct s_lst_var	*next;
+}	t_lst_var;
 
 enum	e_lexer_type{
 	LEX_WORD,
@@ -147,4 +155,8 @@ void			free_mem(t_data *data);
 t_union			*init_cmd_union(t_com *command);
 t_union			*init_pipe_union(void);
 void			rl_replace_line(const char *text, int clear_undo);
+void			ft_add_var(t_data *data);
+int				var_is_in_env(char *varname, char **env);
+int				ft_unset(t_com *command, t_data *data);
+
 #endif
