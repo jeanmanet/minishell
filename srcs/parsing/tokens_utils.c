@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 20:07:26 by jmanet            #+#    #+#             */
-/*   Updated: 2023/03/23 15:22:29 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/04/27 10:38:55 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,4 +84,11 @@ void	print_tokens(t_token_node *list_head)
 		current_node = current_node->next;
 	}
 	printf("fin de la liste\n\n");
+}
+
+int	token_is_in_quote(t_token_node *token)
+{
+	if (token->type == S_NOT_IN_QUOTE)
+		return (0);
+	return (1);
 }

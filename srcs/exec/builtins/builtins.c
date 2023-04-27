@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 11:47:39 by jmanet            #+#    #+#             */
-/*   Updated: 2023/04/27 10:11:48 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/04/27 11:16:47 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,28 +38,7 @@ int	ft_echo(t_com *command)
 	return (0);
 }
 
-char	*var_name(char *str)
-{
-	int		i;
-	char	*varname;
 
-	i = 0;
-	if (!ft_ischarset(str, '='))
-		return (NULL);
-	while (str[i] != '=')
-		i++;
-	varname = malloc(sizeof(char) * i + 1);
-	if (!varname)
-		return (NULL);
-	i = 0;
-	while (str[i] != '=')
-	{
-		varname[i] = str[i];
-		i++;
-	}
-	varname[i] = '\0';
-	return (varname);
-}
 
 int	ft_export(t_com *command, t_data *data)
 {
@@ -72,7 +51,7 @@ int	ft_export(t_com *command, t_data *data)
 	i = 1;
 	while (command->args[i])
 	{
-		name = var_name(command->args[i]);
+		name = get_var_name(command->args[i]);
 		if (name)
 		{
 			value = ft_strdup(command->args[i]);

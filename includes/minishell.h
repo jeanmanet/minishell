@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:09:47 by jmanet            #+#    #+#             */
-/*   Updated: 2023/04/27 10:25:33 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/04/27 11:21:22 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ typedef struct s_ast
 typedef struct s_data
 {
 	t_token_node	*token_list;
+	t_lst_var		*var_list;
 	t_ast			*commands_tree;
 	char			*command_line;
 	char			**envp;
@@ -158,5 +159,12 @@ void			rl_replace_line(const char *text, int clear_undo);
 void			ft_add_var(t_data *data);
 int				var_is_in_env(char *varname, char **env);
 int				ft_unset(t_com *command, t_data *data);
-
+int				token_is_in_quote(t_token_node *token);
+void			add_variable(t_lst_var **head, char *name, char *value);
+void			remove_variable(t_lst_var **head, char *name);
+void			print_variables(t_lst_var *head);
+void			free_variables(t_lst_var **head);
+int				var_exist_in_locallist(char *varname, t_lst_var *var_list);
+char			*get_var_name(char *str);
+char			*get_var_value(t_token_node *tokenlist);
 #endif

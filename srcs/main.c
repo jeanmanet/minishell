@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 22:03:37 by jmanet            #+#    #+#             */
-/*   Updated: 2023/04/25 12:55:22 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/04/27 10:52:02 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ t_data	*data_init(char **envp)
 		ft_exit_error("Memory allocation error \n");
 	data->commands_tree->root = NULL;
 	data->envp = ft_import_envp(envp);
+	data->var_list = NULL;
 	data->pid = 0;
 	return (data);
 }
