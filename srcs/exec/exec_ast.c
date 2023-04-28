@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.c                                             :+:      :+:    :+:   */
+/*   exec_ast.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 14:05:35 by jmanet            #+#    #+#             */
-/*   Updated: 2023/03/23 15:04:07 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/04/28 18:43:09 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ int	execute_ast(t_data *data)
 {
 	if (data->commands_tree->root)
 	{
+		ft_make_here_doc(data->commands_tree->root, data);
 		if (data->commands_tree->root->type == AST_CMD)
 			return (execute_cmd_node(data->commands_tree->root, data));
 		else
