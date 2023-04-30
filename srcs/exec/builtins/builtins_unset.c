@@ -6,12 +6,11 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 09:21:52 by jmanet            #+#    #+#             */
-/*   Updated: 2023/04/30 11:32:02 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/04/30 12:41:06 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
-
 
 int	var_is_in_env(char *varname, char **env)
 {
@@ -88,4 +87,3 @@ int	ft_unset(t_com *command, t_data *data)
 	}
 	return (returnval);
 }
-

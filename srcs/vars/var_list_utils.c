@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 11:07:13 by jmanet            #+#    #+#             */
-/*   Updated: 2023/04/30 11:39:16 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/04/30 12:36:14 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	add_variable(t_lst_var **head, char *name, char *value)
 	new_var->value = strdup(value);
 	new_var->previous = NULL;
 	new_var->next = NULL;
-
 	if (*head == NULL)
 		*head = new_var;
 	else
@@ -110,4 +109,3 @@ void	print_variables(t_lst_var *head)
 		current = current->next;
 	}
 }
-

@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 22:03:37 by jmanet            #+#    #+#             */
-/*   Updated: 2023/04/27 10:52:02 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/04/30 12:34:51 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ void	prompt(t_data *data)
 			data->token_list = tokenizer(data->command_line);
 			ft_add_var(data);
 			parse_token_list(data);
-			execute_ast(data);
+			data->endstatus = execute_ast(data);
+			edit_variable(&data->var_list, "?", ft_itoa(data->endstatus));
 			free_mem(data);
 		}
 		else
@@ -83,6 +84,7 @@ t_data	*data_init(char **envp)
 	data->envp = ft_import_envp(envp);
 	data->var_list = NULL;
 	data->pid = 0;
+	add_variable(&data->var_list, "?", "0");
 	return (data);
 }
 

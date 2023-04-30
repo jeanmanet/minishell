@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 11:47:39 by jmanet            #+#    #+#             */
-/*   Updated: 2023/04/27 11:16:47 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/04/30 12:41:37 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ int	ft_echo(t_com *command)
 		printf("\n");
 	return (0);
 }
-
-
 
 int	ft_export(t_com *command, t_data *data)
 {

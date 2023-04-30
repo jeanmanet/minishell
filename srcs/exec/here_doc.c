@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 18:36:48 by jmanet            #+#    #+#             */
-/*   Updated: 2023/04/28 18:42:47 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/04/30 12:36:46 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,3 @@ void	ft_make_here_doc(t_ast_node *node, t_data *data)
 			make_here_doc(node->content->pipe->right->content->cmd);
 	}
 }
-
