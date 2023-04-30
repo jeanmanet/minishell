@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 12:21:31 by jmanet            #+#    #+#             */
-/*   Updated: 2023/04/27 11:46:10 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/04/30 11:42:41 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,22 +31,12 @@ void	add_var_in_locallist(t_data *data)
 	char	*varname;
 	char	*varvalue;
 
-	printf("Appel de la fonction qui ajoute la var dans la liste\n");
 	varname = get_var_name(data->token_list->token);
-	printf("Nom de la variable a ajouter : %s\n", varname);
 	varvalue = get_var_value(data->token_list);
-	printf("et sa valeur est : %s\n", varvalue);
 	if (var_exist_in_locallist(varname, data->var_list))
-	{
-		printf("La variable existe dans la liste, je la modifie\n");
-	}
+		edit_variable(&data->var_list, varname, varvalue);
 	else
-	{
-		printf("La variable n'existe pas dans la liste, je l'ajoute\n");
 		add_variable(&data->var_list, varname, varvalue);
-	}
-
-	print_variables(data->var_list);
 	free(varname);
 	free(varvalue);
 }

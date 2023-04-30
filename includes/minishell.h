@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:09:47 by jmanet            #+#    #+#             */
-/*   Updated: 2023/04/28 18:28:30 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/04/30 11:39:35 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,6 +161,7 @@ int				var_is_in_env(char *varname, char **env);
 int				ft_unset(t_com *command, t_data *data);
 int				token_is_in_quote(t_token_node *token);
 void			add_variable(t_lst_var **head, char *name, char *value);
+void			edit_variable(t_lst_var **head, char *name, char *new_value);
 void			remove_variable(t_lst_var **head, char *name);
 void			print_variables(t_lst_var *head);
 void			free_variables(t_lst_var **head);

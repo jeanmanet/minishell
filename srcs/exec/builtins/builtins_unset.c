@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 09:21:52 by jmanet            #+#    #+#             */
-/*   Updated: 2023/04/27 10:06:46 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/04/30 11:32:02 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ int	ft_unset(t_com *command, t_data *data)
 	i = 1;
 	while (command->args[i])
 	{
+		remove_variable(&data->var_list, command->args[i]);
 		if (var_is_in_env(command->args[i], data->envp))
 			returnval = ft_unsetenv(command->args[i], data);
 		i++;
