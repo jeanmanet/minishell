@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 10:40:33 by jmanet            #+#    #+#             */
-/*   Updated: 2023/05/01 11:26:52 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/05/01 12:36:21 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,18 @@ int	var_exist_in_locallist(char *varname, t_lst_var *var_list)
 	return (0);
 }
 
-char	*get_var_name_in_token_list(char *str)
+char	*get_var_value_in_varlist(char *varname, t_lst_var *var_list)
+{
+	while (var_list)
+	{
+		if (!ft_strncmp(varname, var_list->name, ft_strlen(varname)))
+			return (var_list->value);
+		var_list = var_list->next;
+	}
+	return (NULL);
+}
+
+char	*get_var_name_in_assignment(char *str)
 {
 	int		i;
 	char	*varname;
@@ -46,7 +57,7 @@ char	*get_var_name_in_token_list(char *str)
 	return (varname);
 }
 
-char	*get_var_value_in_tokenlist(t_token_node *tokenlist)
+char	*get_var_value_in_assignment(t_token_node *tokenlist)
 {
 	int		i;
 	char	*str;
