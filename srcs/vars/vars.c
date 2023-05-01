@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 12:21:31 by jmanet            #+#    #+#             */
-/*   Updated: 2023/05/01 11:53:32 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/05/01 16:06:58 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,11 @@ void	add_var_in_locallist(t_data *data)
 	varname = get_var_name_in_assignment(data->token_list->token);
 	varvalue = get_var_value_in_assignment(data->token_list);
 	if (var_exist_in_locallist(varname, data->var_list))
+	{
 		edit_variable(&data->var_list, varname, varvalue);
+		if (var_is_in_env(varname, data->envp))
+			export_local_var_to_env(varname, data);
+	}
 	else
 		add_variable(&data->var_list, varname, varvalue);
 	free(varname);

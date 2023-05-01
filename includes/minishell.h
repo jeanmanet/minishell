@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:09:47 by jmanet            #+#    #+#             */
-/*   Updated: 2023/05/01 12:01:38 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/05/01 16:06:15 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,7 @@ void			rl_replace_line(const char *text, int clear_undo);
 void			ft_add_var(t_data *data);
 int				var_is_in_env(char *varname, char **env);
 int				ft_unset(t_com *command, t_data *data);
+int				ft_export(t_com *command, t_data *data);
 int				token_is_in_quote(t_token_node *token);
 void			add_variable(t_lst_var **head, char *name, char *value);
 void			edit_variable(t_lst_var **head, char *name, char *new_value);
@@ -172,4 +173,5 @@ char			*get_var_value_in_assignment(t_token_node *tokenlist);
 char			*get_var_value_in_varlist(char *varname, t_lst_var *var_list);
 void			ft_make_here_doc(t_ast_node *node, t_data *data);
 void			expand_vars_in_tokenlist(t_data *data);
+int				export_local_var_to_env(char *varname, t_data *data);
 #endif

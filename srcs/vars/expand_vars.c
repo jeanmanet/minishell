@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 12:01:57 by jmanet            #+#    #+#             */
-/*   Updated: 2023/05/01 12:53:09 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/05/01 16:29:17 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,21 @@ char	*init_str(void)
 	return (str);
 }
 
+char	*ft_strjoin_with_char(char *str, char c)
+{
+	char	*str2;
+	char	*str_joined;
+
+	str2 = malloc(sizeof(char) * 2);
+	if (!str2)
+		ft_exit_error("Memory Allocation Error !\n");
+	str2[0] = c;
+	str2[1] = '\0';
+	str_joined = ft_strjoin(str, str2);
+	free(str2);
+	return (str_joined);
+}
+
 char	*expand_vars_in_token(char *token, t_data *data)
 {
 	int		i;
@@ -67,7 +82,7 @@ char	*expand_vars_in_token(char *token, t_data *data)
 				i++;
 		}
 		else
-			new_token = ft_strjoin(temp, ft_substr(token, i, 1));
+			new_token = ft_strjoin_with_char(temp, token[i]);
 		free(temp);
 		i++;
 	}

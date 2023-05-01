@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 11:47:39 by jmanet            #+#    #+#             */
-/*   Updated: 2023/05/01 11:53:15 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/05/01 16:08:35 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,31 +36,6 @@ int	ft_echo(t_com *command)
 	if (ft_strncmp(command->args[1], "-n", 3))
 		printf("\n");
 	return (0);
-}
-
-int	ft_export(t_com *command, t_data *data)
-{
-	char	*name;
-	char	*value;
-	int		returnval;
-	int		i;
-
-	returnval = 0;
-	i = 1;
-	while (command->args[i])
-	{
-		name = get_var_name_in_assignment(command->args[i]);
-		if (name)
-		{
-			value = ft_strdup(command->args[i]);
-			returnval = ft_setenv(name, value, 1, data);
-			free(name);
-		}
-		else
-			printf("export : `%s': not a valid identifier\n", command->args[i]);
-		i++;
-	}
-	return (returnval);
 }
 
 int	cmd_is_builtin(t_com *command)
