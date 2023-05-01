@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 22:03:37 by jmanet            #+#    #+#             */
-/*   Updated: 2023/05/01 12:53:59 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/05/01 19:28:44 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,26 @@ void	prompt(t_data *data)
 	}
 }
 
+void	init_local_var_list(t_data *data, char **envp)
+{
+	int		i;
+	char	*var;
+	char	*value;
+
+	i = 0;
+	add_variable(&data->var_list, "?", "0");
+	while (envp[i])
+	{
+		var = get_var_name_in_assignment(envp[i]);
+		value = get_var_value_in_assignment(envp[i]);
+		add_variable(&data->var_list, var, value);
+		free(var);
+		free(value);
+		i++;
+	}
+	print_variables(data->var_list);
+}
+
 t_data	*data_init(char **envp)
 {
 	t_data	*data;
@@ -86,7 +106,7 @@ t_data	*data_init(char **envp)
 	data->envp = ft_import_envp(envp);
 	data->var_list = NULL;
 	data->pid = 0;
-	add_variable(&data->var_list, "?", "0");
+	init_local_var_list(data, envp);
 	return (data);
 }
 

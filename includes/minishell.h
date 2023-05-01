@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:09:47 by jmanet            #+#    #+#             */
-/*   Updated: 2023/05/01 18:00:22 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/05/01 19:28:24 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,7 +169,8 @@ void			print_variables(t_lst_var *head);
 void			free_variables(t_lst_var **head);
 int				var_exist_in_locallist(char *varname, t_lst_var *var_list);
 char			*get_var_name_in_assignment(char *str);
-char			*get_var_value_in_assignment(t_token_node *tokenlist);
+char			*get_var_value_in_assignment(char *str);
+char			*get_var_value_in_tokenlist(t_token_node *tokenlist);
 char			*get_var_value_in_varlist(char *varname, t_lst_var *var_list);
 void			ft_make_here_doc(t_ast_node *node, t_data *data);
 void			expand_vars_in_tokenlist(t_data *data);
