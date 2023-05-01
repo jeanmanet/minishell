@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 09:28:44 by jmanet            #+#    #+#             */
-/*   Updated: 2023/03/23 15:05:30 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/05/01 19:54:56 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ int	exec_command(t_com *command, t_data *data)
 
 	saved_stdin = dup(STDIN_FILENO);
 	saved_stdout = dup(STDOUT_FILENO);
-	returnval = 0;
-	if (!ft_redirect_io(command) && command->args[0] != NULL)
+	returnval = ft_redirect_io(command);
+	if (!returnval && command->args[0] != NULL)
 	{
 		if (cmd_is_builtin(command))
 			returnval = exec_builtin(command, data);
