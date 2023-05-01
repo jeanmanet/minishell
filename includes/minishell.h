@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:09:47 by jmanet            #+#    #+#             */
-/*   Updated: 2023/04/30 11:54:33 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/05/01 11:05:32 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ typedef struct s_data
 	t_ast			*commands_tree;
 	char			*command_line;
 	char			**envp;
+	char			*endvar;
 	int				endstatus;
 	pid_t			pid;
 
@@ -162,12 +163,12 @@ int				ft_unset(t_com *command, t_data *data);
 int				token_is_in_quote(t_token_node *token);
 void			add_variable(t_lst_var **head, char *name, char *value);
 void			edit_variable(t_lst_var **head, char *name, char *new_value);
-void			remove_variable(t_lst_var **head, char *name);
+int				remove_variable(t_lst_var **head, char *name);
 void			print_variables(t_lst_var *head);
 void			free_variables(t_lst_var **head);
 int				var_exist_in_locallist(char *varname, t_lst_var *var_list);
-char			*get_var_name(char *str);
-char			*get_var_value(t_token_node *tokenlist);
+char			*get_var_name_in_token_list(char *str);
+char			*get_var_value_in_tokenlist(t_token_node *tokenlist);
 void			ft_make_here_doc(t_ast_node *node, t_data *data);
 void			expand_vars_in_tokenlist(t_data *data);
 #endif

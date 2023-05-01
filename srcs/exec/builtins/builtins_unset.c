@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 09:21:52 by jmanet            #+#    #+#             */
-/*   Updated: 2023/04/30 12:41:06 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/05/01 11:14:13 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ int	ft_unsetenv(char *varname, t_data *data)
 	int		j;
 	char	**newenvp;
 
-	printf("Variable d'env trouvee\n");
 	i = 0;
 	j = 0;
 	newenvp = init_newenv(data->envp);
@@ -80,9 +79,12 @@ int	ft_unset(t_com *command, t_data *data)
 	i = 1;
 	while (command->args[i])
 	{
-		remove_variable(&data->var_list, command->args[i]);
-		if (var_is_in_env(command->args[i], data->envp))
-			returnval = ft_unsetenv(command->args[i], data);
+		if (ft_strncmp(command->args[i], "?", 2))
+		{
+			remove_variable(&data->var_list, command->args[i]);
+			if (var_is_in_env(command->args[i], data->envp))
+				returnval = ft_unsetenv(command->args[i], data);
+		}
 		i++;
 	}
 	return (returnval);

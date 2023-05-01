@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 22:03:37 by jmanet            #+#    #+#             */
-/*   Updated: 2023/04/30 12:34:51 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/05/01 11:07:38 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,10 @@ void	prompt(t_data *data)
 			ft_add_var(data);
 			parse_token_list(data);
 			data->endstatus = execute_ast(data);
-			edit_variable(&data->var_list, "?", ft_itoa(data->endstatus));
+			data->endvar = ft_itoa(data->endstatus);
+			edit_variable(&data->var_list, "?", data->endvar);
 			free_mem(data);
+			print_variables(data->var_list);
 		}
 		else
 			free(data->command_line);

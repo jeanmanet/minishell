@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 11:47:39 by jmanet            #+#    #+#             */
-/*   Updated: 2023/04/30 12:41:37 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/05/01 11:28:20 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,15 @@ int	ft_export(t_com *command, t_data *data)
 	i = 1;
 	while (command->args[i])
 	{
-		name = get_var_name(command->args[i]);
+		name = get_var_name_in_token_list(command->args[i]);
 		if (name)
 		{
 			value = ft_strdup(command->args[i]);
 			returnval = ft_setenv(name, value, 1, data);
+			free(name);
 		}
-		free(name);
+		else
+			printf("export : `%s': not a valid identifier\n", command->args[i]);
 		i++;
 	}
 	return (returnval);

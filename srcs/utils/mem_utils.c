@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 09:51:45 by jmanet            #+#    #+#             */
-/*   Updated: 2023/03/23 15:00:40 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/05/01 11:07:26 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,5 @@ void	free_mem(t_data *data)
 	free(data->command_line);
 	free_tokens(&data->token_list);
 	free_ast(data->commands_tree);
+	free(data->endvar);
 }

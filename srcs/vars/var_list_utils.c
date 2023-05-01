@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 11:07:13 by jmanet            #+#    #+#             */
-/*   Updated: 2023/04/30 12:36:14 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/05/01 10:50:30 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,13 @@ void	add_variable(t_lst_var **head, char *name, char *value)
 	}
 }
 
-void	remove_variable(t_lst_var **head, char *name)
+int	remove_variable(t_lst_var **head, char *name)
 {
 	t_lst_var	*current;
 
 	current = *head;
 	if (*head == NULL)
-		return ;
+		return (0);
 	while (current != NULL)
 	{
 		if (strcmp(current->name, name) == 0)
@@ -56,10 +56,11 @@ void	remove_variable(t_lst_var **head, char *name)
 			free(current->name);
 			free(current->value);
 			free(current);
-			return ;
+			return (1);
 		}
 		current = current->next;
 	}
+	return (0);
 }
 
 void	edit_variable(t_lst_var **head, char *name, char *new_value)

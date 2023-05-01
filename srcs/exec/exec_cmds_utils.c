@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 10:26:17 by jmanet            #+#    #+#             */
-/*   Updated: 2023/04/17 17:47:59 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/05/01 11:10:58 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	free_tab_str_cmd(char **str)
 	int	i;
 
 	i = 0;
+	if (!str)
+		return ;
 	if (!str[0] && str[1])
 		i++;
 	while (str[i])
@@ -63,6 +65,7 @@ char	*ft_absolute_path(char *cmd, const char *PATH)
 		free(current_path);
 		i++;
 	}
+	free_tab_str_cmd(paths);
 	return (NULL);
 }
 
