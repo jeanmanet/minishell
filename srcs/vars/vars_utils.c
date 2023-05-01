@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 10:40:33 by jmanet            #+#    #+#             */
-/*   Updated: 2023/05/01 16:06:39 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/05/01 17:44:31 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int	var_exist_in_locallist(char *varname, t_lst_var *var_list)
 
 char	*get_var_value_in_varlist(char *varname, t_lst_var *var_list)
 {
+	if (!ft_strlen(varname))
+		return (NULL);
 	while (var_list)
 	{
 		if (!ft_strncmp(varname, var_list->name, ft_strlen(varname)))

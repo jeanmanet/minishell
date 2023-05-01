@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:09:47 by jmanet            #+#    #+#             */
-/*   Updated: 2023/05/01 17:17:10 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/05/01 18:00:22 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,4 +175,5 @@ void			ft_make_here_doc(t_ast_node *node, t_data *data);
 void			expand_vars_in_tokenlist(t_data *data);
 int				export_local_var_to_env(char *varname, t_data *data);
 int				ft_exit(t_com *command, t_data *data);
+char			*ft_strjoin_with_char(char *str, char c);
 #endif

@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 12:01:57 by jmanet            #+#    #+#             */
-/*   Updated: 2023/05/01 16:29:17 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/05/01 18:42:26 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,23 +41,27 @@ char	*init_str(void)
 	str = malloc(0);
 	if (!str)
 		ft_exit_error("Memory Allocation Error !\n");
-	str[0] = '\0';
+	str[0] = 0;
 	return (str);
 }
 
-char	*ft_strjoin_with_char(char *str, char c)
+char	*token_with_expanded_var(char *token, char *varname, t_data *data)
 {
-	char	*str2;
-	char	*str_joined;
+	t_lst_var	*var_list;
+	char		*expanded_var;
+	char		*temp;
+	char		*new_token;
 
-	str2 = malloc(sizeof(char) * 2);
-	if (!str2)
-		ft_exit_error("Memory Allocation Error !\n");
-	str2[0] = c;
-	str2[1] = '\0';
-	str_joined = ft_strjoin(str, str2);
-	free(str2);
-	return (str_joined);
+	var_list = data->var_list;
+	new_token = ft_strdup(token);
+	expanded_var = get_var_value_in_varlist(varname, var_list);
+	if (expanded_var)
+	{
+		temp = new_token;
+		new_token = ft_strjoin(new_token, expanded_var);
+		free(temp);
+	}
+	return (new_token);
 }
 
 char	*expand_vars_in_token(char *token, t_data *data)
@@ -75,8 +79,7 @@ char	*expand_vars_in_token(char *token, t_data *data)
 		if (token[i] == '$')
 		{
 			varname = get_var_name(&token[i + 1]);
-			new_token = ft_strjoin(temp,
-					get_var_value_in_varlist(varname, data->var_list));
+			new_token = token_with_expanded_var(temp, varname, data);
 			free(varname);
 			while (token[i + 1] && token[i + 1] != '$')
 				i++;
