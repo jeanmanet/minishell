@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 12:01:57 by jmanet            #+#    #+#             */
-/*   Updated: 2023/05/01 18:42:26 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/05/02 16:41:37 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ char	*get_var_name(char *str)
 
 	i = 0;
 	varname = NULL;
-	while (str[i] && str[i] != '$')
+	while (str[i] && str[i] != '$' && str[i] != ':')
 		i++;
 	varname = malloc(sizeof(char) * (i + 1));
 	if (!varname)
 		ft_exit_error("Memory Allocation Error !\n");
 	i = 0;
-	while (str[i] && str[i] != '$')
+	while (str[i] && str[i] != '$' && str[i] != ':')
 	{
 		varname[i] = str[i];
 		i++;
@@ -81,7 +81,7 @@ char	*expand_vars_in_token(char *token, t_data *data)
 			varname = get_var_name(&token[i + 1]);
 			new_token = token_with_expanded_var(temp, varname, data);
 			free(varname);
-			while (token[i + 1] && token[i + 1] != '$')
+			while (token[i + 1] && token[i + 1] != '$' && token[i + 1] != ':')
 				i++;
 		}
 		else

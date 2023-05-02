@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 12:21:31 by jmanet            #+#    #+#             */
-/*   Updated: 2023/05/02 15:38:38 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/05/02 16:45:33 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,10 @@ int	token_contains_valid_variable(char *token)
 	if (ft_ischarset(token, '='))
 	{
 		varname = get_var_name_in_assignment(token);
-		if (!ft_strlen(varname))
-			ret = 0;
-		else
+		if (ft_strlen(varname))
 			ret = 1;
+		else
+			ret = 0;
 		free(varname);
 	}
 	return (ret);
