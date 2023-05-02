@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 14:05:35 by jmanet            #+#    #+#             */
-/*   Updated: 2023/05/02 14:42:26 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/05/02 15:00:16 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	execute_pipe_node(t_ast_node *node, t_data *data)
 	if (pid == -1)
 	{
 		perror("Fork");
-		return (-1);
+		return (1);
 	}
 	else if (pid == 0)
 		ret = execute_left_node(node->content->pipe->left, pipe_fd, data);
