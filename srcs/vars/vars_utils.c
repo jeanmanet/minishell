@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 10:40:33 by jmanet            #+#    #+#             */
-/*   Updated: 2023/05/01 19:29:10 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/05/02 15:35:14 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,9 @@ char	*get_var_value_in_tokenlist(t_token_node *tokenlist)
 	i++;
 	if (str[i])
 		varvalue = ft_substr(str, i, ft_strlen(str + i));
+	else if (tokenlist->next)
+		varvalue = ft_strdup(tokenlist->next->token);
 	else
-		if (tokenlist->next)
-			varvalue = ft_strdup(tokenlist->next->token);
+		varvalue = ft_strdup("");
 	return (varvalue);
 }

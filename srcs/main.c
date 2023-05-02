@@ -6,13 +6,13 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 22:03:37 by jmanet            #+#    #+#             */
-/*   Updated: 2023/05/01 19:35:30 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/05/02 15:15:36 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-pid_t	g_pid;
+t_global	g_global;
 
 int	check_quotes(char *str)
 {
@@ -57,8 +57,8 @@ void	prompt(t_data *data)
 			expand_vars_in_tokenlist(data);
 			ft_add_var(data);
 			parse_token_list(data);
-			data->endstatus = execute_ast(data);
-			data->endvar = ft_itoa(data->endstatus);
+			g_global.exit_code = execute_ast(data);
+			data->endvar = ft_itoa(g_global.exit_code);
 			edit_variable(&data->var_list, "?", data->endvar);
 			free_mem(data);
 		}

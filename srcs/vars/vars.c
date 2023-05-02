@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 12:21:31 by jmanet            #+#    #+#             */
-/*   Updated: 2023/05/01 19:26:34 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/05/02 15:38:38 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,24 @@ void	add_var_in_locallist(t_data *data)
 	free(varvalue);
 }
 
+int	token_contains_valid_variable(char *token)
+{
+	char	*varname;
+	int		ret;
+
+	ret = 0;
+	if (ft_ischarset(token, '='))
+	{
+		varname = get_var_name_in_assignment(token);
+		if (!ft_strlen(varname))
+			ret = 0;
+		else
+			ret = 1;
+		free(varname);
+	}
+	return (ret);
+}
+
 void	ft_add_var(t_data *data)
 {
 	t_token_node	*list_tokens;
@@ -56,7 +74,7 @@ void	ft_add_var(t_data *data)
 			list_tokens = list_tokens->next;
 		if (token_is_in_quote(list_tokens) && list_tokens->type == T_ARG)
 		{
-			if (ft_ischarset(list_tokens->token, '='))
+			if (token_contains_valid_variable(list_tokens->token))
 			{
 				list_tokens->type = T_VAR;
 				if (list_tokens->next && token_is_in_quote(list_tokens->next))

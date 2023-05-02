@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:09:47 by jmanet            #+#    #+#             */
-/*   Updated: 2023/05/01 19:28:24 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/05/02 15:12:36 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,13 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 
-extern pid_t				g_pid;
+typedef struct s_global
+{
+	int		pid;
+	int		exit_code;
+}	t_global;
+
+extern t_global				g_global;
 
 typedef struct s_lst_var
 {

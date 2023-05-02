@@ -6,21 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 09:31:12 by jmanet            #+#    #+#             */
-/*   Updated: 2023/04/27 09:12:24 by jmanet           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "../includes/minishell.h"
-
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   signal_handler.c                                   :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ory <ory@student.42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/29 09:31:12 by jmanet            #+#    #+#             */
-/*   Updated: 2023/04/14 09:55:45 by ory              ###   ########.fr       */
+/*   Updated: 2023/05/02 15:13:59 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +14,9 @@
 
 void	handle_sigint(void)
 {
-	if (g_pid == 0)
+	if(g_global.pid == 0)
 	{
+		g_global.exit_code = 1;
 		printf("\e[2K");
 		rl_on_new_line();
 		rl_redisplay();
@@ -40,8 +27,9 @@ void	handle_sigint(void)
 	}
 	else
 	{
-		kill(g_pid, SIGINT);
-		g_pid = 0;
+		kill(g_global.pid, SIGINT);
+		g_global.pid = 0;
+		g_global.exit_code = 130;
 		printf("\n");
 		rl_on_new_line();
 	}
@@ -49,7 +37,7 @@ void	handle_sigint(void)
 
 void	handle_sigquit(void)
 {
-	if (g_pid == 0)
+	if (g_global.exit_code == 0)
 	{
 		printf("\e[2K");
 		rl_on_new_line();
@@ -57,8 +45,9 @@ void	handle_sigquit(void)
 	}
 	else
 	{
-		kill(g_pid, SIGINT);
-		g_pid = 0;
+		kill(g_global.pid, SIGINT);
+		g_global.pid = 0;
+		g_global.pid = 131;
 		printf("Quit: 3\n");
 		rl_on_new_line();
 	}
@@ -85,16 +74,9 @@ void	ft_signal_handler_here_doc(int signal)
 {
 	if (signal == SIGINT)
 	{
-		//tmp_fd_here_doc = 1;
-		// if (fd_here_doc != -1)
-		//close(fd_here_doc);
-		//printf("handler ctrl c heredoc\n");
 		printf("\e[2K");
 		rl_on_new_line();
 		rl_redisplay();
-		// rl_on_new_line();
-		// write(0, "\x04", 1);
-		//unlink(".here_doc.tmp");
 	}
 	else if (signal == SIGQUIT)
 	{
@@ -103,4 +85,5 @@ void	ft_signal_handler_here_doc(int signal)
 		rl_redisplay();
 	}
 }
+
 

@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 09:28:44 by jmanet            #+#    #+#             */
-/*   Updated: 2023/05/02 14:59:57 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/05/02 15:14:32 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,17 +48,17 @@ int	exec_processus(t_com *command, t_data *data)
 	absolute_cmd = get_absolute_command(cmd[0], data->envp);
 	if (absolute_cmd)
 	{
-		g_pid = fork();
-		if (g_pid == -1)
+		g_global.pid = fork();
+		if (g_global.pid == -1)
 		{
 			perror("Fork");
 			return (1);
 		}
-		if (g_pid == 0)
+		if (g_global.pid == 0)
 			execve(absolute_cmd, cmd, data->envp);
 		else
 		{
-			waitpid(g_pid, &status, 0);
+			waitpid(g_global.pid, &status, 0);
 			free(absolute_cmd);
 			return (WEXITSTATUS(status));
 		}
