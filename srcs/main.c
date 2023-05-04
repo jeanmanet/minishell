@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 22:03:37 by jmanet            #+#    #+#             */
-/*   Updated: 2023/05/04 20:44:47 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/05/04 20:59:31 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	prompt(t_data *data)
 		{
 			data->endvar = ft_itoa(g_global.exit_code);
 			edit_variable(&data->var_list, "?", data->endvar);
+			g_global.exit_code = 0;
 			data->token_list = tokenizer(data->command_line);
 			expand_vars_in_tokenlist(data);
 			ft_add_var(data);
