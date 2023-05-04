@@ -6,42 +6,13 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 22:03:37 by jmanet            #+#    #+#             */
-/*   Updated: 2023/05/02 16:17:50 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/05/04 20:44:47 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
 t_global	g_global;
-
-int	check_quotes(char *str)
-{
-	int		i;
-	int		nb_quotes;
-	char	c;
-
-	i = 0;
-	nb_quotes = 0;
-	if (!str || !*str)
-		return (0);
-	while (str[i])
-	{
-		if ((ft_lexing(str[i]) == LEX_SQUOTE)
-			|| (ft_lexing(str[i]) == LEX_DQUOTE))
-		{
-			c = str[i++];
-			nb_quotes++;
-			while (str[i] && str[i] != c)
-				i++;
-			if (str[i] == c)
-				nb_quotes++;
-		}
-		i++;
-	}
-	if (nb_quotes % 2 != 0)
-		printf("Error in command, some quotes aren't closed \n");
-	return (!(nb_quotes % 2));
-}
 
 void	prompt(t_data *data)
 {
@@ -50,16 +21,15 @@ void	prompt(t_data *data)
 	add_history(data->command_line);
 	if (data->command_line)
 	{
-		if (ft_strlen(data->command_line) > 0
-			&& check_quotes(data->command_line))
+		if (!check_cmdline(data->command_line))
 		{
+			data->endvar = ft_itoa(g_global.exit_code);
+			edit_variable(&data->var_list, "?", data->endvar);
 			data->token_list = tokenizer(data->command_line);
 			expand_vars_in_tokenlist(data);
 			ft_add_var(data);
 			parse_token_list(data);
-			g_global.exit_code = execute_ast(data);
-			data->endvar = ft_itoa(g_global.exit_code);
-			edit_variable(&data->var_list, "?", data->endvar);
+			execute_ast(data);
 			free_mem(data);
 		}
 		else

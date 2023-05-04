@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 09:31:12 by jmanet            #+#    #+#             */
-/*   Updated: 2023/05/02 15:13:59 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/05/04 20:48:14 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	handle_sigint(void)
 {
-	if(g_global.pid == 0)
+	if (g_global.pid == 0)
 	{
 		g_global.exit_code = 1;
 		printf("\e[2K");
@@ -85,5 +85,3 @@ void	ft_signal_handler_here_doc(int signal)
 		rl_redisplay();
 	}
 }
-
-
