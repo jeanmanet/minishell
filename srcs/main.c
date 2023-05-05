@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 22:03:37 by jmanet            #+#    #+#             */
-/*   Updated: 2023/05/04 20:59:31 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/05/05 12:03:09 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,7 @@ void	prompt(t_data *data)
 			free(data->command_line);
 	}
 	else
-	{
-		printf("exit\n");
-		exit(0);
-	}
+		ft_exit_no_readline();
 }
 
 void	init_local_var_list(t_data *data, char **envp)
@@ -77,6 +74,7 @@ t_data	*data_init(char **envp)
 	data->var_list = NULL;
 	data->pid = 0;
 	init_local_var_list(data, envp);
+	g_global.in_here_doc = 0;
 	return (data);
 }
 

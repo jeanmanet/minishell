@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:09:47 by jmanet            #+#    #+#             */
-/*   Updated: 2023/05/04 20:20:39 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/05/05 12:05:20 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,4 +185,5 @@ int				ft_exit(t_com *command, t_data *data);
 char			*ft_strjoin_with_char(char *str, char c);
 int				check_cmdline(char *cmdline);
 int				exec_builtin_in_process(t_com *command, t_data *data);
+void			ft_exit_no_readline();
 #endif
