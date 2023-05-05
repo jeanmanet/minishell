@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 08:59:42 by jmanet            #+#    #+#             */
-/*   Updated: 2023/05/05 12:01:41 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/05/05 12:06:23 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	cmd_not_found(char *cmd_name)
 	write(2, "\n", 1);
 }
 
-void	ft_exit_no_readline()
+void	ft_exit_no_readline(void)
 {
 	printf("\033[1A");
 	rl_on_new_line();
