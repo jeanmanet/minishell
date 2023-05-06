@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:09:47 by jmanet            #+#    #+#             */
-/*   Updated: 2023/05/05 12:06:28 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/05/06 10:59:34 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,7 @@ int				ft_redirect_io(t_com *command);
 int				open_infile(t_data *data);
 int				open_outfile(t_data *data);
 void			ft_signal_handler(void);
+void			ft_signal_handler_here_doc(int signal);
 void			parse_token_list(t_data *data);
 int				ft_lexing(char c);
 int				execute_ast(t_data *data);

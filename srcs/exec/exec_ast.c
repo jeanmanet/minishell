@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 14:05:35 by jmanet            #+#    #+#             */
-/*   Updated: 2023/05/05 10:49:24 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/05/06 11:40:47 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,13 @@ int	execute_ast(t_data *data)
 	if (data->commands_tree->root)
 	{
 		ft_make_here_doc(data->commands_tree->root, data);
-		if (data->commands_tree->root->type == AST_CMD)
-			ret = execute_cmd_node(data->commands_tree->root, data);
-		else
-			ret = execute_pipe_node(data->commands_tree->root, data);
+		if (g_global.exit_code ==0)
+		{
+			if (data->commands_tree->root->type == AST_CMD)
+				ret = execute_cmd_node(data->commands_tree->root, data);
+			else
+				ret = execute_pipe_node(data->commands_tree->root, data);
+		}
 	}
 	if (g_global.exit_code != 130)
 		g_global.exit_code = ret;

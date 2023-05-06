@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 09:31:12 by jmanet            #+#    #+#             */
-/*   Updated: 2023/05/04 21:05:42 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/05/06 11:55:09 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,16 +72,18 @@ void	ft_signal_handler(void)
 
 void	ft_signal_handler_here_doc(int signal)
 {
-	if (signal == SIGINT)
+	if (g_global.pid == 0)
 	{
-		printf("\e[2K");
-		rl_on_new_line();
-		rl_redisplay();
-	}
-	else if (signal == SIGQUIT)
-	{
-		printf("\e[2K");
-		rl_on_new_line();
-		rl_redisplay();
+		if (signal == SIGINT)
+		{
+			//g_global.pid = 0;
+			g_global.exit_code = 1;
+			printf("\n");
+			exit (1);
+		}
+		else if (signal == SIGQUIT)
+		{
+			printf("Test");
+		}
 	}
 }

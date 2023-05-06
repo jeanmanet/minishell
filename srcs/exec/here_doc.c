@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 18:36:48 by jmanet            #+#    #+#             */
-/*   Updated: 2023/05/05 11:03:03 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/05/06 11:52:05 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ int	make_here_doc(t_com *command)
 
 	fd_here_doc = open_here_docfile();
 	command->here_doc_limiter = command->infile;
+	signal(SIGINT, ft_signal_handler_here_doc);
+	signal(SIGQUIT, ft_signal_handler_here_doc);
 	while (1)
 	{
 		line = readline("here_doc > ");
@@ -63,12 +65,28 @@ int	make_here_doc(t_com *command)
 	return (fd_here_doc);
 }
 
+int	make_here_doc_in_process(t_com *command)
+{
+	int	status;
+
+	g_global.pid = fork();
+	if (g_global.pid == 0)
+	{
+		make_here_doc(command);
+		exit(0);
+	}
+	else
+		waitpid(g_global.pid, &status, 0);
+	g_global.pid = 0;
+	return (WIFEXITED(status));
+}
+
 void	ft_make_here_doc(t_ast_node *node, t_data *data)
 {
 	if (node->type == AST_CMD)
 	{
 		if (node->content->cmd->cmd_input_mode == CMD_HERE_DOC)
-			make_here_doc(node->content->cmd);
+			make_here_doc_in_process(node->content->cmd);
 	}
 	else
 	{
@@ -78,10 +96,12 @@ void	ft_make_here_doc(t_ast_node *node, t_data *data)
 		{
 			if (node->content->pipe->left->content->cmd->cmd_input_mode
 				== CMD_HERE_DOC)
-				make_here_doc(node->content->pipe->left->content->cmd);
+				make_here_doc_in_process(node->content->pipe->left->content->cmd);
 		}
 		if (node->content->pipe->right->content->cmd->cmd_input_mode
 			== CMD_HERE_DOC)
-			make_here_doc(node->content->pipe->right->content->cmd);
+			make_here_doc_in_process(node->content->pipe->right->content->cmd);
 	}
 }
+
+
