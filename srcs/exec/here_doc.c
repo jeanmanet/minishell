@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 18:36:48 by jmanet            #+#    #+#             */
-/*   Updated: 2023/05/06 11:52:05 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/05/06 12:14:45 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,12 +96,11 @@ void	ft_make_here_doc(t_ast_node *node, t_data *data)
 		{
 			if (node->content->pipe->left->content->cmd->cmd_input_mode
 				== CMD_HERE_DOC)
-				make_here_doc_in_process(node->content->pipe->left->content->cmd);
+				make_here_doc_in_process
+					(node->content->pipe->left->content->cmd);
 		}
 		if (node->content->pipe->right->content->cmd->cmd_input_mode
 			== CMD_HERE_DOC)
 			make_here_doc_in_process(node->content->pipe->right->content->cmd);
 	}
 }
-
-
