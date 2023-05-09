@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:09:47 by jmanet            #+#    #+#             */
-/*   Updated: 2023/05/07 12:11:10 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/05/09 09:47:51 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 typedef struct s_global
 {
 	int		pid;
-	int		exit_code;
+	int		exit_code_error;
 	int		in_prompt;
 }	t_global;
 
@@ -188,4 +188,5 @@ char			*ft_strjoin_with_char(char *str, char c);
 int				check_cmdline(char *cmdline);
 int				exec_builtin_in_process(t_com *command, t_data *data);
 void			ft_exit_no_readline(void);
+void			ft_update_local_exit_var(t_data *data);
 #endif

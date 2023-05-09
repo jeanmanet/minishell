@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 22:03:37 by jmanet            #+#    #+#             */
-/*   Updated: 2023/05/07 11:39:32 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/05/09 09:58:34 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,18 @@ void	prompt(t_data *data)
 	g_global.in_prompt = 1;
 	data->command_line = readline("minishell > ");
 	g_global.in_prompt = 0;
+	ft_update_local_exit_var(data);
 	add_history(data->command_line);
 	if (data->command_line)
 	{
 		if (!check_cmdline(data->command_line))
 		{
-			data->endvar = ft_itoa(g_global.exit_code);
-			edit_variable(&data->var_list, "?", data->endvar);
-			g_global.exit_code = 0;
+			g_global.exit_code_error = 0;
 			data->token_list = tokenizer(data->command_line);
 			expand_vars_in_tokenlist(data);
 			ft_add_var(data);
 			parse_token_list(data);
-			execute_ast(data);
+			data->endstatus = execute_ast(data);
 			free_mem(data);
 		}
 		else

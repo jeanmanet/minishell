@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 09:31:12 by jmanet            #+#    #+#             */
-/*   Updated: 2023/05/07 12:34:13 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/05/09 10:02:16 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	handle_sigint(void)
 {
 	if (g_global.in_prompt == 1)
 	{
-		g_global.exit_code = 1;
+		g_global.exit_code_error = 1;
 		printf("\e[2K");
 		rl_on_new_line();
 		rl_redisplay();
@@ -30,7 +30,7 @@ void	handle_sigint(void)
 		if (g_global.pid != 0)
 		{
 			g_global.pid = 0;
-			g_global.exit_code = 130;
+			g_global.exit_code_error = 130;
 			printf("\n");
 			rl_on_new_line();
 		}
@@ -50,7 +50,7 @@ void	handle_sigquit(void)
 		if (g_global.pid != 0)
 		{
 			g_global.pid = 0;
-			g_global.exit_code = 131;
+			g_global.exit_code_error = 131;
 			printf("Quit: 3\n");
 			rl_on_new_line();
 		}
@@ -83,7 +83,7 @@ void	ft_signal_handler_here_doc(int signal)
 	}
 	else
 	{
-		g_global.exit_code = 1;
+		g_global.exit_code_error = 130;
 		printf("\n");
 	}
 }

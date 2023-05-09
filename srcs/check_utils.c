@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 16:49:22 by jmanet            #+#    #+#             */
-/*   Updated: 2023/05/04 18:15:30 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/05/09 09:31:05 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	unexpected_token(char *command_line)
 		|| command_line[i] == '|' || command_line[0] == '|')
 	{
 		printf("syntax error: unexpected token\n");
-		g_global.exit_code = 258;
+		g_global.exit_code_error = 258;
 		return (1);
 	}
 	return (0);

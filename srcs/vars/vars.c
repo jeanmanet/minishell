@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 12:21:31 by jmanet            #+#    #+#             */
-/*   Updated: 2023/05/02 16:45:33 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/05/09 09:48:54 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,4 +90,12 @@ void	ft_add_var(t_data *data)
 	}
 	if (tokenlist_contains_only_vars(data))
 		add_var_in_locallist(data);
+}
+
+void	ft_update_local_exit_var(t_data *data)
+{
+	if (g_global.exit_code_error != 0)
+		data->endstatus = g_global.exit_code_error;
+	data->endvar = ft_itoa(data->endstatus);
+	edit_variable(&data->var_list, "?", data->endvar);
 }
