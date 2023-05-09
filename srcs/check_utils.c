@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 16:49:22 by jmanet            #+#    #+#             */
-/*   Updated: 2023/05/09 09:31:05 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/05/09 12:31:30 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,24 +55,6 @@ int	cmdline_is_only_spaces(char *cmdline)
 	return (1);
 }
 
-int	unexpected_token(char *command_line)
-{
-	int	i;
-
-	i = 0;
-	while (command_line[i])
-		i++;
-	i = i - 1;
-	if (command_line[i] == '<' || command_line[i] == '>'
-		|| command_line[i] == '|' || command_line[0] == '|')
-	{
-		printf("syntax error: unexpected token\n");
-		g_global.exit_code_error = 258;
-		return (1);
-	}
-	return (0);
-}
-
 int	check_cmdline(char *cmdline)
 {
 	int	ret;
@@ -83,8 +65,6 @@ int	check_cmdline(char *cmdline)
 	if (!check_quotes(cmdline))
 		ret = -1;
 	if (cmdline_is_only_spaces(cmdline))
-		ret = -1;
-	if (unexpected_token(cmdline))
 		ret = -1;
 	return (ret);
 }

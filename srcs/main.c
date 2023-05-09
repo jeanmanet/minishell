@@ -6,13 +6,27 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 22:03:37 by jmanet            #+#    #+#             */
-/*   Updated: 2023/05/09 09:58:34 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/05/09 12:36:54 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
 t_global	g_global;
+
+void	exec_commandline(t_data *data)
+{
+	g_global.exit_code_error = 0;
+	data->token_list = tokenizer(data->command_line);
+	if (!check_unexpected_token(data->token_list))
+	{
+		expand_vars_in_tokenlist(data);
+		ft_add_var(data);
+		parse_token_list(data);
+		data->endstatus = execute_ast(data);
+	}
+	free_mem(data);
+}
 
 void	prompt(t_data *data)
 {
@@ -25,15 +39,7 @@ void	prompt(t_data *data)
 	if (data->command_line)
 	{
 		if (!check_cmdline(data->command_line))
-		{
-			g_global.exit_code_error = 0;
-			data->token_list = tokenizer(data->command_line);
-			expand_vars_in_tokenlist(data);
-			ft_add_var(data);
-			parse_token_list(data);
-			data->endstatus = execute_ast(data);
-			free_mem(data);
-		}
+			exec_commandline(data);
 		else
 			free(data->command_line);
 	}

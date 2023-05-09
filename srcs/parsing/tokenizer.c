@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 10:55:24 by jmanet            #+#    #+#             */
-/*   Updated: 2023/04/25 10:57:31 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/05/09 11:53:54 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,21 @@ int	get_next_token(char *str)
 	return (i);
 }
 
+t_token_node	*get_next_token_type(t_token_node *token_list)
+{
+	if (token_list->next)
+	{
+		if (token_list->type <= T_REDIR_OUT)
+		{
+			token_list->next->type = T_REDIR_FILE;
+			return (token_list->next);
+		}
+		else
+			return (token_list);
+	}
+	return (token_list);
+}
+
 void	get_token_type(t_token_node *token_list)
 {
 	while (token_list)
@@ -59,15 +74,13 @@ void	get_token_type(t_token_node *token_list)
 			&& token_list->q_state == S_NOT_IN_QUOTE)
 		{
 			token_list->type = T_REDIR_OUT;
-			token_list = token_list->next;
-			token_list->type = T_REDIR_FILE;
+			token_list = get_next_token_type(token_list);
 		}
 		if ((ft_lexing(token_list->token[0]) == LEX_SMALLER)
 			&& token_list->q_state == S_NOT_IN_QUOTE)
 		{
 			token_list->type = T_REDIR_IN;
-			token_list = token_list->next;
-			token_list->type = T_REDIR_FILE;
+			token_list = get_next_token_type(token_list);
 		}
 		if ((ft_lexing(token_list->token[0]) == LEX_PIPE)
 			&& token_list->q_state == S_NOT_IN_QUOTE)

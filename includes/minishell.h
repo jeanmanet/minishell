@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:09:47 by jmanet            #+#    #+#             */
-/*   Updated: 2023/05/09 09:47:51 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/05/09 12:31:39 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,4 +189,5 @@ int				check_cmdline(char *cmdline);
 int				exec_builtin_in_process(t_com *command, t_data *data);
 void			ft_exit_no_readline(void);
 void			ft_update_local_exit_var(t_data *data);
+int				check_unexpected_token(t_token_node *token_list);
 #endif
