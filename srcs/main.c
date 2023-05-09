@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 22:03:37 by jmanet            #+#    #+#             */
-/*   Updated: 2023/05/05 12:27:15 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/05/07 11:39:32 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ t_global	g_global;
 void	prompt(t_data *data)
 {
 	ft_signal_handler();
+	g_global.in_prompt = 1;
 	data->command_line = readline("minishell > ");
+	g_global.in_prompt = 0;
 	add_history(data->command_line);
 	if (data->command_line)
 	{

@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 09:28:44 by jmanet            #+#    #+#             */
-/*   Updated: 2023/05/04 20:20:18 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/05/08 10:12:05 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	exec_command(t_com *command, t_data *data)
 	if (!returnval && command->args[0] != NULL)
 	{
 		if (cmd_is_builtin(command))
-			returnval = exec_builtin_in_process(command, data);
+			returnval = exec_builtin(command, data);
 		else
 			returnval = exec_processus(command, data);
 	}
@@ -58,7 +58,8 @@ int	exec_processus(t_com *command, t_data *data)
 			execve(absolute_cmd, cmd, data->envp);
 		else
 		{
-			waitpid(g_global.pid, &status, 0);
+			while (waitpid(g_global.pid, &status, WNOHANG) == 0)
+				;
 			free(absolute_cmd);
 			return (WEXITSTATUS(status));
 		}

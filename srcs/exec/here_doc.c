@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 18:36:48 by jmanet            #+#    #+#             */
-/*   Updated: 2023/05/06 12:14:45 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/05/07 13:05:55 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@ int	make_here_doc(t_com *command)
 
 	fd_here_doc = open_here_docfile();
 	command->here_doc_limiter = command->infile;
-	signal(SIGINT, ft_signal_handler_here_doc);
-	signal(SIGQUIT, ft_signal_handler_here_doc);
 	while (1)
 	{
 		line = readline("here_doc > ");
@@ -69,6 +67,8 @@ int	make_here_doc_in_process(t_com *command)
 {
 	int	status;
 
+	signal(SIGINT, ft_signal_handler_here_doc);
+	signal(SIGQUIT, SIG_IGN);
 	g_global.pid = fork();
 	if (g_global.pid == 0)
 	{

@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 09:31:12 by jmanet            #+#    #+#             */
-/*   Updated: 2023/05/06 11:55:09 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/05/07 12:34:13 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	handle_sigint(void)
 {
-	if (g_global.pid == 0)
+	if (g_global.in_prompt == 1)
 	{
 		g_global.exit_code = 1;
 		printf("\e[2K");
@@ -27,17 +27,19 @@ void	handle_sigint(void)
 	}
 	else
 	{
-		kill(g_global.pid, SIGINT);
-		g_global.pid = 0;
-		g_global.exit_code = 130;
-		printf("\n");
-		rl_on_new_line();
+		if (g_global.pid != 0)
+		{
+			g_global.pid = 0;
+			g_global.exit_code = 130;
+			printf("\n");
+			rl_on_new_line();
+		}
 	}
 }
 
 void	handle_sigquit(void)
 {
-	if (g_global.exit_code == 0)
+	if (g_global.in_prompt == 1)
 	{
 		printf("\e[2K");
 		rl_on_new_line();
@@ -45,11 +47,13 @@ void	handle_sigquit(void)
 	}
 	else
 	{
-		kill(g_global.pid, SIGINT);
-		g_global.pid = 0;
-		g_global.pid = 131;
-		printf("Quit: 3\n");
-		rl_on_new_line();
+		if (g_global.pid != 0)
+		{
+			g_global.pid = 0;
+			g_global.exit_code = 131;
+			printf("Quit: 3\n");
+			rl_on_new_line();
+		}
 	}
 }
 
@@ -75,15 +79,11 @@ void	ft_signal_handler_here_doc(int signal)
 	if (g_global.pid == 0)
 	{
 		if (signal == SIGINT)
-		{
-			//g_global.pid = 0;
-			g_global.exit_code = 1;
-			printf("\n");
-			exit (1);
-		}
-		else if (signal == SIGQUIT)
-		{
-			printf("Test");
-		}
+			exit(0);
+	}
+	else
+	{
+		g_global.exit_code = 1;
+		printf("\n");
 	}
 }

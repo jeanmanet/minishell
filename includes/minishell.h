@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:09:47 by jmanet            #+#    #+#             */
-/*   Updated: 2023/05/06 10:59:34 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/05/07 12:11:10 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct s_global
 {
 	int		pid;
 	int		exit_code;
+	int		in_prompt;
 }	t_global;
 
 extern t_global				g_global;
