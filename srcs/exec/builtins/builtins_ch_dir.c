@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 08:52:39 by jmanet            #+#    #+#             */
-/*   Updated: 2023/03/23 15:16:46 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/05/09 14:39:50 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,11 @@ int	ft_change_directory(t_com *command, t_data *data)
 	{
 		if (S_ISDIR(sb.st_mode))
 		{
-			ft_setenv("OLDPWD", ft_strjoin("OLDPWD=",
-					getcwd(pwd, 256)), 1, data);
+			edit_variable(&data->var_list, "OLDPWD", getcwd(pwd, 256));
+			export_local_var_to_env("OLDPWD", data);
 			chdir(command->args[1]);
-			ft_setenv("PWD", ft_strjoin("PWD=", getcwd(pwd, 256)), 1, data);
+			edit_variable(&data->var_list, "PWD", getcwd(pwd, 256));
+			export_local_var_to_env("PWD", data);
 			return (0);
 		}
 		else

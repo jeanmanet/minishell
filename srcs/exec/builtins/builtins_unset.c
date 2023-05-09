@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 09:21:52 by jmanet            #+#    #+#             */
-/*   Updated: 2023/05/01 11:14:13 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/05/09 15:19:00 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ int	ft_unsetenv(char *varname, t_data *data)
 			newenvp[i] = data->envp[i + j];
 		else
 		{
-			free(data->envp[i + j]);
+			if (var_is_protected(varname))
+				free(data->envp[i + j]);
 			j++;
 			newenvp[i] = data->envp[i + j];
 		}
@@ -79,12 +80,9 @@ int	ft_unset(t_com *command, t_data *data)
 	i = 1;
 	while (command->args[i])
 	{
-		if (ft_strncmp(command->args[i], "?", 2))
-		{
-			remove_variable(&data->var_list, command->args[i]);
-			if (var_is_in_env(command->args[i], data->envp))
-				returnval = ft_unsetenv(command->args[i], data);
-		}
+		returnval = remove_variable(&data->var_list, command->args[i]);
+		if (var_is_in_env(command->args[i], data->envp))
+			returnval = ft_unsetenv(command->args[i], data);
 		i++;
 	}
 	return (returnval);

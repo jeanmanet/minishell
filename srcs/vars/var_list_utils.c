@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 11:07:13 by jmanet            #+#    #+#             */
-/*   Updated: 2023/05/01 15:43:00 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/05/09 15:20:32 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ int	remove_variable(t_lst_var **head, char *name)
 		return (0);
 	while (current != NULL)
 	{
+		if (var_is_protected(name))
+			return (0);
 		if (strcmp(current->name, name) == 0)
 		{
 			if (current->previous != NULL)
