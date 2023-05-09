@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 18:36:48 by jmanet            #+#    #+#             */
-/*   Updated: 2023/05/07 13:05:55 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/05/09 10:21:52 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ int	make_here_doc_in_process(t_com *command)
 	else
 		waitpid(g_global.pid, &status, 0);
 	g_global.pid = 0;
+	if (g_global.exit_code_error == 130)
+		unlink(".here_doc.tmp");
 	return (WIFEXITED(status));
 }
 
