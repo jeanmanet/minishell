@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 14:05:35 by jmanet            #+#    #+#             */
-/*   Updated: 2023/05/09 10:06:40 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/05/12 15:09:48 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ int	execute_pipe_node(t_ast_node *node, t_data *data)
 	ret = execute_right_node(node->content->pipe->right, pipe_fd, data);
 	close(pipe_fd[0]);
 	close(pipe_fd[1]);
-	while (waitpid(pid, NULL, 0) == 0)
-		;
+	waitpid(pid, NULL, 0);
+	//	;
 	return (ret);
 }
 

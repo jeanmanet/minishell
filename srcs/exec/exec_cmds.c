@@ -6,7 +6,7 @@
 /*   By: jmanet <jmanet@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 09:28:44 by jmanet            #+#    #+#             */
-/*   Updated: 2023/05/08 10:12:05 by jmanet           ###   ########.fr       */
+/*   Updated: 2023/05/12 15:09:36 by jmanet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	exec_processus(t_com *command, t_data *data)
 			execve(absolute_cmd, cmd, data->envp);
 		else
 		{
-			while (waitpid(g_global.pid, &status, WNOHANG) == 0)
+			while (waitpid(g_global.pid, &status, 0) == 0)
 				;
 			free(absolute_cmd);
 			return (WEXITSTATUS(status));
